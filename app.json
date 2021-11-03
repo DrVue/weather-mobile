@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "weathermobile",
+    "name": "Погода",
     "slug": "weather-mobile",
     "sdkVersion": "43.0.0",
-    "version": "1.0.0",
+    "version": "0.3.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -20,7 +20,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "ru.drvue.weather"
     },
     "android": {
       "package": "ru.drvue.weather",
@@ -28,7 +29,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

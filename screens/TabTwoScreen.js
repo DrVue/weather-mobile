@@ -1,4 +1,4 @@
-import {StyleSheet} from "react-native";
+import {Platform, StyleSheet} from "react-native";
 
 import {Text, View} from "../components/Themed";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
@@ -39,7 +39,7 @@ export default function TabTwoScreen({route}) {
                 lightColor="rgba(0,0,0,0.8)"
                 darkColor="rgba(255,255,255,0.8)"
             >
-                v 0.2.0
+                v 0.4.0
             </Text>
         </View>
     );

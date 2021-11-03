@@ -9,6 +9,7 @@ import Colors from "../constants/Colors";
 import TabOneScreen from "../screens/TabOneScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import SearchScreen from "../screens/SearchScreen";
+import CityScreen from "../screens/CityScreen";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -21,11 +22,20 @@ export default function BottomTabNavigator() {
             screenOptions={{tabBarActiveTintColor: Colors[colorScheme].tint}}
         >
             <BottomTab.Screen
-                name="Погода"
+                name="Рядом"
                 component={TabOneNavigator}
                 options={{
                     tabBarIcon: ({color}) => (
-                        <MaterialCommunityIcons size={30} style={{marginBottom: -3}} name="weather-cloudy" color={color}/>
+                        <MaterialIcons size={30} style={{marginBottom: -3}} name="my-location" color={color}/>
+                    ),
+                }}
+            />
+            <BottomTab.Screen
+                name="Город"
+                component={CityNavigator}
+                options={{
+                    tabBarIcon: ({color}) => (
+                        <MaterialIcons size={30} style={{marginBottom: -3}} name="location-city" color={color}/>
                     ),
                 }}
             />
@@ -61,7 +71,7 @@ function TabOneNavigator() {
             <TabOneStack.Screen
                 name="TabOneScreen"
                 component={TabOneScreen}
-                initialParams={{city: "Moscow"}}
+                initialParams={{}}
                 options={({route}) => ({city: route.params.city})}
             />
         </TabOneStack.Navigator>
@@ -76,7 +86,6 @@ function TabTwoNavigator() {
             <TabTwoStack.Screen
                 name="TabTwoScreen"
                 component={TabTwoScreen}
-
             />
         </TabTwoStack.Navigator>
     );
@@ -92,5 +101,19 @@ function SearchNavigator() {
                 component={SearchScreen}
             />
         </SearchStack.Navigator>
+    );
+}
+
+const CityStack = createStackNavigator();
+
+function CityNavigator() {
+    return (
+        <CityStack.Navigator screenOptions={{headerShown: false}}>
+            <CityStack.Screen
+                name="CityScreen"
+                component={CityScreen}
+                initialParams={{city: "Moscow,RU"}}
+            />
+        </CityStack.Navigator>
     );
 }

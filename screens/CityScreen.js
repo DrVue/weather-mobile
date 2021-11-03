@@ -12,21 +12,16 @@ import {
 
 import {Text, View} from "../components/Themed";
 import axios from "react-native-axios";
-import moment from "moment";
-import {MaterialCommunityIcons} from "@expo/vector-icons";
-import * as Location from "expo-location";
 import WeatherPage from "../components/WeatherPage";
 
-export default function TabOneScreen({navigation, route}) {
+export default function CityScreen({navigation, route}) {
     const [isLoading, setIsLoading] = useState(true);
     const [weather, setWeather] = useState({});
-    const [location, setLocation] = useState(null);
-    const [errMsg, setErrMsg] = useState(null);
+    const [city, setCity] = useState(route.params.city);
 
-    function getWeatherLocate(locate) {
-        axios.post("http://194.67.78.244:3010/locate/one", {
-            lan: locate.coords.latitude,
-            lon: locate.coords.longitude,
+    function getWeather(c = city) {
+        axios.post("http://194.67.78.244:3010/get/one", {
+            city: c,
         }).then((d) => {
             setWeather(d.data.weather);
             setIsLoading(false);
@@ -35,17 +30,11 @@ export default function TabOneScreen({navigation, route}) {
 
     useEffect(() => {
         if (isLoading) {
-            (async () => {
-                let {status} = await Location.requestForegroundPermissionsAsync();
-                if (status !== "granted") {
-                    setErrMsg("Permission was denied");
-                    return;
-                }
-
-                const locate = await Location.getCurrentPositionAsync({});
-                setLocation(locate);
-                getWeatherLocate(locate);
-            })();
+            getWeather();
+        }
+        if (route.params.city !== city) {
+            setCity(route.params.city);
+            setIsLoading(true);
         }
     });
 
@@ -67,8 +56,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 10,
         paddingLeft: 10,
-        alignItems: "center",
-        textAlign: "center",
+        // alignItems: "start",
         // justifyContent: "start",
     },
     containerLoading: {
