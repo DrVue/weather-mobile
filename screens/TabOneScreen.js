@@ -67,8 +67,9 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 10,
         paddingLeft: 10,
-        alignItems: "center",
-        textAlign: "center",
+        paddingRight: 10,
+        // alignItems: "center",
+        // textAlign: "center",
         // justifyContent: "start",
     },
     containerLoading: {
@@ -82,6 +83,6 @@ const styles = StyleSheet.create({
         marginVertical: 20,
         // margin: 40,
         height: 1,
-        width: "95%",
+        width: "100%",
     },
 });

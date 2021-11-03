@@ -4,6 +4,30 @@ import moment from "moment";
 import WeatherAPI from "../api";
 import {StyleSheet, useColorScheme} from "react-native";
 
+function Card(props) {
+    const colorScheme = useColorScheme();
+
+    const styles = StyleSheet.create({
+        card: {
+            padding: 5,
+            marginTop: 5,
+            marginBottom: 5,
+            width: "100%",
+            backgroundColor: colorScheme === "dark" ? "#333" : "#bbb",
+            borderRadius: 5,
+        },
+        cardTextBig: {
+            fontSize: 40,
+        }
+    })
+
+    return <View style={styles.card}>
+        <Text>{props.title}</Text>
+        <Text style={styles.cardTextBig}>{props.value}</Text>
+        {props.children}
+    </View>
+}
+
 function WeatherPage (props) {
     const colorScheme = useColorScheme();
 
@@ -25,7 +49,7 @@ function WeatherPage (props) {
             marginVertical: 20,
             // margin: 40,
             height: 1,
-            width: "95%",
+            width: "100%",
         },
     });
 
@@ -35,8 +59,8 @@ function WeatherPage (props) {
         <Text style={styles.text}>{props.weather.weather[0].description}</Text>
         <View
             style={styles.separator}
-            lightColor="#fff"
-            darkColor="#000"
+            lightColor="#eee"
+            darkColor="rgba(255,255,255,0.1)"
         />
         <Text
             style={styles.tempText}>{WeatherAPI.getIconWeather(props.weather.weather[0].id, props.weather.weather[0].icon, colorScheme === "dark" ? "white" : "black",)} {props.weather.main.temp.toFixed(1)} °C</Text>
@@ -44,13 +68,13 @@ function WeatherPage (props) {
         <Text style={styles.text}>Ощущается как {props.weather.main.feels_like.toFixed(1)} °C</Text>
         <View
             style={styles.separator}
-            lightColor="#fff"
-            darkColor="#000"
+            lightColor="#eee"
+            darkColor="rgba(255,255,255,0.1)"
         />
-        <Text style={styles.text}>Давление: {(props.weather.main.pressure / 1.333).toFixed(2)} мм.рт.ст.</Text>
-        <Text style={styles.text}>Ветер: {props.weather.wind.speed} м/с {WeatherAPI.getWind(props.weather.wind.deg)}</Text>
-        <Text style={styles.text}>Влажность: {props.weather.main.humidity} %</Text>
-        <Text style={styles.text}>Восход\Закат: {moment(props.weather.sys.sunrise, "X").format("HH:mm")} - {moment(props.weather.sys.sunset, "X").format("HH:mm")}</Text>
+        <Card title="Ветер" value={`${props.weather.wind.speed} м/с ${WeatherAPI.getWind(props.weather.wind.deg)}`}></Card>
+        <Card title="Давление" value={`${(props.weather.main.pressure / 1.333).toFixed(2)} мм.рт.ст.`}></Card>
+        <Card title="Влажность" value={`${props.weather.main.humidity} %`}></Card>
+        <Card title="Восход\Закат" value={`${moment(props.weather.sys.sunrise, "X").format("HH:mm")} - ${moment(props.weather.sys.sunset, "X").format("HH:mm")}`}></Card>
     </View>
 }
 

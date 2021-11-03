@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 10,
         paddingLeft: 10,
+        paddingRight: 10,
         // alignItems: "start",
         // justifyContent: "start",
     },
@@ -70,6 +71,6 @@ const styles = StyleSheet.create({
         marginVertical: 20,
         // margin: 40,
         height: 1,
-        width: "95%",
+        width: "100%",
     },
 });
