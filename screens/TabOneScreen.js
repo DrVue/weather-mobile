@@ -11,7 +11,7 @@ export default function TabOneScreen({navigation, route}) {
     const [city, setCity] = useState(route.params.city);
 
     function getWeather(c = city) {
-        axios.post("http://192.168.1.40:3001/get/one", {
+        axios.post("http://194.67.78.244:3010/get/one", {
             city: c,
         }).then((d) => {
             setWeather(d.data.weather);

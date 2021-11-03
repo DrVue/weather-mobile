@@ -30,7 +30,14 @@ export default function TabTwoScreen({route}) {
                 lightColor="rgba(0,0,0,0.8)"
                 darkColor="rgba(255,255,255,0.8)"
             >
-                v 0.1.0
+                Данные предоставлены OpenWeatherMap
+            </Text>
+            <Text
+                style={styles.getStartedText}
+                lightColor="rgba(0,0,0,0.8)"
+                darkColor="rgba(255,255,255,0.8)"
+            >
+                v 0.2.0
             </Text>
         </View>
     );
