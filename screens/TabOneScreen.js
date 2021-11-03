@@ -5,10 +5,10 @@ import {Text, View} from "../components/Themed";
 import axios from "react-native-axios";
 import moment from "moment";
 
-export default function TabOneScreen({navigation}) {
+export default function TabOneScreen({navigation, route}) {
     const [isLoading, setIsLoading] = useState(true);
     const [weather, setWeather] = useState({});
-    const [city, setCity] = useState("Moscow");
+    const [city, setCity] = useState(route.params.city);
 
     function getWeather(c = city) {
         axios.post("http://192.168.1.40:3001/get/one", {
@@ -63,22 +63,17 @@ export default function TabOneScreen({navigation}) {
         if (isLoading) {
             getWeather();
         }
-    })
+        if (route.params.city !== city) {
+            setCity(route.params.city);
+            setIsLoading(true);
+        }
+    });
 
     return (
         <View style={styles.container}>
             {
                 !isLoading
                     ? <View>
-
-                        <TextInput style={styles.input} placeholder="Поиск по городу..." onChangeText={(text) => setCity(text)}/>
-                        <Button style={styles.input} onPress={() => {setIsLoading(true); getWeather(city)}} title="Открыть"/>
-                        <Button style={styles.input} onPress={() => navigation.navigate("TabTwoScreen", {city: weather.name})} title="О нас"/>
-                        <View
-                            style={styles.separator}
-                            lightColor="#eee"
-                            darkColor="rgba(255,255,255,0.1)"
-                        />
                         <Text style={styles.title}>{weather.name}</Text>
                         <Text>{weather.weather[0].description}</Text>
                         <View
@@ -86,9 +81,9 @@ export default function TabOneScreen({navigation}) {
                             lightColor="#eee"
                             darkColor="rgba(255,255,255,0.1)"
                         />
-                        <Text style={styles.tempText}>{getCel(weather.main.temp)} °C</Text>
-                        <Text>{getCel(weather.main.temp_min)} °C / {getCel(weather.main.temp_max)} °C</Text>
-                        <Text>Ощущается как {getCel(weather.main.feels_like)} °C</Text>
+                        <Text style={styles.tempText}>{weather.main.temp.toFixed(1)} °C</Text>
+                        <Text>{weather.main.temp_min.toFixed(1)} °C / {weather.main.temp_max.toFixed(1)} °C</Text>
+                        <Text>Ощущается как {weather.main.feels_like.toFixed(1)} °C</Text>
                         <View
                             style={styles.separator}
                             lightColor="#eee"
@@ -119,7 +114,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     tempText: {
-        fontSize: 100,
+        fontSize: 80,
     },
     tempMiniText: {},
     separator: {
