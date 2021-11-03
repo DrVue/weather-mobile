@@ -1,9 +1,9 @@
 // Learn more about createBottomTabNavigator:
 // https://reactnavigation.org/docs/bottom-tab-navigator
-import Ionicons from "@expo/vector-icons/Ionicons";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {createStackNavigator} from "@react-navigation/stack";
 import {useColorScheme} from "react-native";
+import {MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
 
 import Colors from "../constants/Colors";
 import TabOneScreen from "../screens/TabOneScreen";
@@ -25,7 +25,7 @@ export default function BottomTabNavigator() {
                 component={TabOneNavigator}
                 options={{
                     tabBarIcon: ({color}) => (
-                        <TabBarIcon name="ios-code" color={color}/>
+                        <MaterialCommunityIcons size={30} style={{marginBottom: -3}} name="weather-cloudy" color={color}/>
                     ),
                 }}
             />
@@ -34,7 +34,7 @@ export default function BottomTabNavigator() {
                 component={SearchNavigator}
                 options={{
                     tabBarIcon: ({color}) => (
-                        <TabBarIcon name="ios-code" color={color}/>
+                        <MaterialIcons size={30} style={{marginBottom: -3}} name="search" color={color}/>
                     ),
                 }}
             />
@@ -43,18 +43,12 @@ export default function BottomTabNavigator() {
                 component={TabTwoNavigator}
                 options={{
                     tabBarIcon: ({color}) => (
-                        <TabBarIcon name="ios-code" color={color}/>
+                        <MaterialCommunityIcons size={30} style={{marginBottom: -3}} name="information-variant" color={color}/>
                     ),
                 }}
             />
         </BottomTab.Navigator>
     );
-}
-
-// You can explore the built-in icon families and icons on the web at:
-// https://icons.expo.fyi/
-function TabBarIcon(props) {
-    return <Ionicons size={30} style={{marginBottom: -3}} {...props} />;
 }
 
 const TabOneStack = createStackNavigator();

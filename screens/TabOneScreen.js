@@ -4,6 +4,7 @@ import {StyleSheet, TextInput, Button} from "react-native";
 import {Text, View} from "../components/Themed";
 import axios from "react-native-axios";
 import moment from "moment";
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 
 export default function TabOneScreen({navigation, route}) {
     const [isLoading, setIsLoading] = useState(true);
@@ -59,6 +60,38 @@ export default function TabOneScreen({navigation, route}) {
         }
     }
 
+    function getIconWeather(code, icon = "01d") {
+        const c = code.toString();
+        if (c[0] === "2") {
+            return <MaterialCommunityIcons size={50} style={{marginBottom: -3}} name="weather-cloudy" color="white"/>;
+        } else if (c[0] === "3") {
+            return <MaterialCommunityIcons size={50} style={{marginBottom: -3}} name="weather-rainy" color="white"/>;
+        } else if (c[0] === "5") {
+            return <MaterialCommunityIcons size={50} style={{marginBottom: -3}} name="weather-rainy" color="white"/>;
+        } else if (c[0] === "6") {
+            return <MaterialCommunityIcons size={50} style={{marginBottom: -3}} name="weather-snowy" color="white"/>;
+        } else if (c === "731" || c === "771" || c === "781") {
+            return <MaterialCommunityIcons size={50} style={{marginBottom: -3}} name="weather-windy" color="white"/>;
+        } else if (c[0] === "7") {
+            return <MaterialCommunityIcons size={50} style={{marginBottom: -3}} name="weather-fog" color="white"/>;
+        } else if (c === "800") {
+            if (icon[2] === "d") {
+                return <MaterialCommunityIcons size={50} style={{marginBottom: -3}} name="weather-sunny" color="white"/>;
+            } else if (icon[2] === "n") {
+                return <MaterialCommunityIcons size={50} style={{marginBottom: -3}} name="weather-night" color="white"/>;
+            }
+        } else if (c === "801" || c === "802") {
+            if (icon[2] === "d") {
+                return <MaterialCommunityIcons size={50} style={{marginBottom: -3}} name="weather-partly-cloudy" color="white"/>;
+            } else if (icon[2] === "n") {
+                return <MaterialCommunityIcons size={50} style={{marginBottom: -3}} name="weather-night-partly-cloudy" color="white"/>;
+            }
+        } else if (c === "803" || c === "804") {
+            return <MaterialCommunityIcons size={50} style={{marginBottom: -3}} name="weather-cloudy" color="white"/>;
+        }
+    }
+
+
     useEffect(() => {
         if (isLoading) {
             getWeather();
@@ -81,7 +114,7 @@ export default function TabOneScreen({navigation, route}) {
                             lightColor="#eee"
                             darkColor="rgba(255,255,255,0.1)"
                         />
-                        <Text style={styles.tempText}>{weather.main.temp.toFixed(1)} °C</Text>
+                        <Text style={styles.tempText}>{getIconWeather(weather.weather[0].id, weather.weather[0].icon)} {weather.main.temp.toFixed(1)} °C</Text>
                         <Text>{weather.main.temp_min.toFixed(1)} °C / {weather.main.temp_max.toFixed(1)} °C</Text>
                         <Text>Ощущается как {weather.main.feels_like.toFixed(1)} °C</Text>
                         <View
@@ -114,7 +147,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     tempText: {
-        fontSize: 80,
+        fontSize: 50,
     },
     tempMiniText: {},
     separator: {

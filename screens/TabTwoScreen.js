@@ -1,10 +1,12 @@
 import {StyleSheet} from "react-native";
 
 import {Text, View} from "../components/Themed";
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 
 export default function TabTwoScreen({route}) {
     return (
         <View style={styles.container}>
+            <MaterialCommunityIcons size={100} style={{marginBottom: -3}} name="weather-cloudy" color="white"/>
             <Text style={styles.title}>О приложении "Погода"</Text>
             <View
                 style={styles.separator}
