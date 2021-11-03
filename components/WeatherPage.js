@@ -35,8 +35,8 @@ function WeatherPage (props) {
         <Text style={styles.text}>{props.weather.weather[0].description}</Text>
         <View
             style={styles.separator}
-            lightColor="#eee"
-            darkColor="rgba(255,255,255,0.1)"
+            lightColor="#fff"
+            darkColor="#000"
         />
         <Text
             style={styles.tempText}>{WeatherAPI.getIconWeather(props.weather.weather[0].id, props.weather.weather[0].icon, colorScheme === "dark" ? "white" : "black",)} {props.weather.main.temp.toFixed(1)} °C</Text>
@@ -44,8 +44,8 @@ function WeatherPage (props) {
         <Text style={styles.text}>Ощущается как {props.weather.main.feels_like.toFixed(1)} °C</Text>
         <View
             style={styles.separator}
-            lightColor="#eee"
-            darkColor="rgba(255,255,255,0.1)"
+            lightColor="#fff"
+            darkColor="#000"
         />
         <Text style={styles.text}>Давление: {(props.weather.main.pressure / 1.333).toFixed(2)} мм.рт.ст.</Text>
         <Text style={styles.text}>Ветер: {props.weather.wind.speed} м/с {WeatherAPI.getWind(props.weather.wind.deg)}</Text>
