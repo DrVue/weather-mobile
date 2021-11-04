@@ -42,14 +42,12 @@ export default function TabTwoScreen({route}) {
 
     return (
         <View>
-            <MView style={{marginTop: 30}}/>
+            <MView style={{marginTop: 70}}/>
             <View style={styles.container} contentContainerStyle={{
                 flex: 1,
                 alignItems: "center",
                 justifyContent: "flex-start",
             }}>
-                <Icon prov="mci" size={100} style={{marginBottom: -3}} name="weather-cloudy" color="white"/>
-                <Text style={styles.title}>О приложении "Погода"</Text>
             </View>
             <MView style={{marginTop: 30}}/>
             <ListItem style={styles.listItem} containerStyle={styles.listItem} bottomDivider topDivider>
@@ -119,7 +117,7 @@ export default function TabTwoScreen({route}) {
                         Версия приложения
                     </ListItem.Title>
                     <ListItem.Subtitle style={styles.textSmall}>
-                        0.6.0 alpha
+                        1.0.0 beta
                     </ListItem.Subtitle>
                 </ListItem.Content>
             </ListItem>

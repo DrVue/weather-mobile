@@ -64,7 +64,7 @@ export default function SearchScreen ({navigation}) {
 
 
     return <View>
-        <MView style={{marginTop: 30}}/>
+        <MView style={{marginTop: 70}}/>
             <SearchBar
                 placeholder="Поиск по городу..."
                 onChangeText={text => setCity(text)}
@@ -100,7 +100,7 @@ export default function SearchScreen ({navigation}) {
                         })
                     }
                 </View>
-                : <ActivityIndicator size="large" color="#0000ff"/>
+                : <ActivityIndicator size={50} color="#0000ff"/>
         }
     </View>
 }

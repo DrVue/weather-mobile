@@ -39,8 +39,7 @@ export default function AlertsScreen({route, navigation}) {
     });
 
     return <MView>
-        <MView style={{marginTop: 60}}/>
-        <Button title="Назад" buttonStyle={styles.card} onPress={() => navigation.goBack()}/>
+        <MView style={{marginTop: 90}}/>
         <MView>
             {
                 route.params.alerts !== []

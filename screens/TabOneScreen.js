@@ -74,7 +74,7 @@ export default function TabOneScreen({navigation, route}) {
                     ? <WeatherPage styles={styles} weather={weather} weatherPeriod={weatherPeriod}
                                    isLoadingPeriod={isLoadingPeriod} loc navigation={navigation}/>
                     : <MView style={styles.containerLoading}>
-                        <ActivityIndicator size="large" color="#0000ff"/>
+                        <ActivityIndicator size={100} color="#0000ff"/>
                     </MView>
             }
         </View>
@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
     },
     containerLoading: {
         flex: 1,
-        paddingTop: 10,
-        paddingLeft: 10,
+        paddingTop: 300,
+        paddingLeft: 0,
         alignItems: "center",
         justifyContent: "center",
     },

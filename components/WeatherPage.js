@@ -398,7 +398,7 @@ function WeatherPage(props) {
 
     return <View>
         <MView style={styles.firstView}>
-            <MView style={{marginTop: 30}}/>
+            <MView style={{marginTop: 100}}/>
             <Text
                 style={styles.tempText}>{WeatherAPI.getIconWeather(props.weather.weather[0].id, props.weather.weather[0].icon, colorScheme === "dark" ? "white" : "white", 100)}</Text>
             <Text

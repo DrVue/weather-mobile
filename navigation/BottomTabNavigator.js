@@ -11,10 +11,12 @@ import TabTwoScreen from "../screens/TabTwoScreen";
 import SearchScreen from "../screens/SearchScreen";
 import CityScreen from "../screens/CityScreen";
 import AlertsScreen from "../screens/AlertsScreen";
+import {Button} from "react-native-elements";
+import {Icon, MView} from "../components/Themed";
 
 const BottomTab = createBottomTabNavigator();
 
-export default function BottomTabNavigator() {
+ function BottomTabNavigator() {
     const colorScheme = useColorScheme();
 
     return (
@@ -25,29 +27,6 @@ export default function BottomTabNavigator() {
             <BottomTab.Screen
                 name="Рядом"
                 component={TabOneNavigator}
-                options={{
-                    tabBarIcon: ({color}) => (
-                        <MaterialIcons size={30} style={{marginBottom: -3}} name="location-on" color={color}/>
-                    ),
-                }}
-            />
-            <BottomTab.Screen
-                name="Поиск"
-                component={SearchNavigator}
-                options={{
-                    tabBarIcon: ({color}) => (
-                        <MaterialIcons size={30} style={{marginBottom: -3}} name="search" color={color}/>
-                    ),
-                }}
-            />
-            <BottomTab.Screen
-                name="О приложении"
-                component={TabTwoNavigator}
-                options={{
-                    tabBarIcon: ({color}) => (
-                        <MaterialCommunityIcons size={30} style={{marginBottom: -3}} name="information-variant" color={color}/>
-                    ),
-                }}
             />
         </BottomTab.Navigator>
     );
@@ -57,20 +36,68 @@ const TabOneStack = createStackNavigator();
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 
-function TabOneNavigator() {
+export default function TabOneNavigator() {
     return (
-        <TabOneStack.Navigator screenOptions={{headerShown: false}}>
+        <TabOneStack.Navigator screenOptions={{headerShown: true}}>
             <TabOneStack.Screen
                 name="TabOneScreen"
                 component={TabOneScreen}
                 initialParams={{}}
-                options={({route}) => ({city: route.params.city})}
+                options={({navigation, route}) => ({
+                    city: route.params.city,
+                    title: "",
+                    headerTransparent: true,
+                    headerRight: () => (
+                        <MView style={{flex: 1, flexDirection: "row", backgroundColor: "transparent"}}>
+                            <Button type="clear" icon={<Icon prov="mi" name="search" size={30} onPress={() => navigation.navigate("SearchScreen")}/>}/>
+                            <Button type="clear" icon={<Icon prov="mi" name="info" size={30} onPress={() => navigation.navigate("TabTwoScreen")}/>}/>
+                        </MView>
+                    )
+                })}
+            />
+            <TabTwoStack.Screen
+                name="TabTwoScreen"
+                component={TabTwoScreen}
+                options={{
+                    title: "О приложении",
+                    headerTransparent: true,
+                    headerTitleAlign: "center",
+                }}
             />
             <TabOneStack.Screen
                 name="AlertsScreen"
                 component={AlertsScreen}
                 initialParams={{alerts: []}}
-                options={({route}) => ({alerts: route.params.alerts})}
+                options={({route}) => ({
+                    alerts: route.params.alerts,
+                    headerTransparent: true,
+                    headerTitleAlign: "center",
+                    title: "Информация",
+                })}
+            />
+            <TabOneStack.Screen
+                name="SearchScreen"
+                component={SearchScreen}
+                options={{
+                    headerTransparent: true,
+                    title: "",
+                }}
+            />
+            <TabOneStack.Screen
+                name="CityScreen"
+                component={CityScreen}
+                options={({navigation, route}) => ({
+                    lat: route.params.lat,
+                    lon: route.params.lon,
+                    title: "",
+                    headerTransparent: true,
+                    headerRight: () => (
+                        <MView style={{flex: 1, flexDirection: "row", backgroundColor: "transparent"}}>
+                            <Button type="clear" icon={<Icon prov="mi" name="search" size={30} onPress={() => navigation.navigate("SearchScreen")}/>}/>
+                            <Button type="clear" icon={<Icon prov="mi" name="info" size={30} onPress={() => navigation.navigate("TabTwoScreen")}/>}/>
+                        </MView>
+                    )
+                })}
             />
         </TabOneStack.Navigator>
     );
@@ -81,10 +108,7 @@ const TabTwoStack = createStackNavigator();
 function TabTwoNavigator() {
     return (
         <TabTwoStack.Navigator screenOptions={{headerShown: false}}>
-            <TabTwoStack.Screen
-                name="TabTwoScreen"
-                component={TabTwoScreen}
-            />
+
         </TabTwoStack.Navigator>
     );
 }
@@ -94,21 +118,7 @@ const SearchStack = createStackNavigator();
 function SearchNavigator() {
     return (
         <SearchStack.Navigator screenOptions={{headerShown: false}}>
-            <SearchStack.Screen
-                name="SearchScreen"
-                component={SearchScreen}
-            />
-            <SearchStack.Screen
-                name="CityScreen"
-                component={CityScreen}
-                initialParams={{city: "Moscow,RU"}}
-            />
-            <SearchStack.Screen
-                name="AlertsScreen"
-                component={AlertsScreen}
-                initialParams={{alerts: []}}
-                options={({route}) => ({alerts: route.params.alerts})}
-            />
+
         </SearchStack.Navigator>
     );
 }

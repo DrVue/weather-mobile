@@ -27,6 +27,7 @@ export default function CityScreen({navigation, route}) {
             lon: route.params.lon,
         }).then((d) => {
             setWeather(d.data.weather);
+            console.log(d.data.weather);
             getWeatherPeriod();
             setIsLoading(false);
         })
@@ -62,7 +63,7 @@ export default function CityScreen({navigation, route}) {
                     ? <WeatherPage styles={styles} weather={weather} weatherPeriod={weatherPeriod}
                                    isLoadingPeriod={isLoadingPeriod} navigation={navigation}/>
                     : <MView style={styles.containerLoading}>
-                        <ActivityIndicator size="large" color="#0000ff"/>
+                        <ActivityIndicator size={100} color="#0000ff"/>
                     </MView>
             }
         </View>
@@ -77,8 +78,8 @@ const styles = StyleSheet.create({
     },
     containerLoading: {
         flex: 1,
-        paddingTop: 10,
-        paddingLeft: 10,
+        paddingTop: 300,
+        paddingLeft: 0,
     },
     separator: {
         marginVertical: 20,

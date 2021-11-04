@@ -8,7 +8,7 @@ import {
 import {createStackNavigator} from "@react-navigation/stack";
 
 import NotFoundScreen from "../screens/NotFoundScreen";
-import BottomTabNavigator from "./BottomTabNavigator";
+import TabOneNavigator from "./BottomTabNavigator";
 import LinkingConfiguration from "./LinkingConfiguration";
 
 import {ThemeProvider} from "react-native-elements";
@@ -33,7 +33,7 @@ const Stack = createStackNavigator();
 function RootNavigator() {
     return (
         <Stack.Navigator screenOptions={{headerShown: false}}>
-            <Stack.Screen name="Root" component={BottomTabNavigator}/>
+            <Stack.Screen name="Root" component={TabOneNavigator}/>
             <Stack.Screen
                 name="NotFound"
                 component={NotFoundScreen}
