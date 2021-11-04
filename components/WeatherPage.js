@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Text, View, MView} from "./Themed";
+import {Text, View, MView, Icon} from "./Themed";
 import moment from "moment";
 import WeatherAPI from "../api";
 import {ActivityIndicator, StyleSheet, useColorScheme} from "react-native";
@@ -133,7 +133,7 @@ function Card(props) {
 
     return <View style={styles.card}>
         <Text style={styles.title}>{props.title}</Text>
-        <Text style={styles.cardTextBig}>{props.value}</Text>
+        <Text style={styles.cardTextBig}>{props.icon} {props.value}</Text>
         {props.children}
     </View>
 }
@@ -163,6 +163,8 @@ function Alerts(props) {
 
     const styles = StyleSheet.create({
         card: {
+            flex: 1,
+            alignItems: "center",
             padding: 5,
             marginTop: 5,
             marginBottom: 5,
@@ -183,7 +185,11 @@ function Alerts(props) {
         },
         title: {
             fontWeight: "bold",
+            fontSize: 20,
         },
+        text: {
+            textAlignVertical: "top",
+        }
     });
 
     return <MView>
@@ -196,6 +202,7 @@ function Alerts(props) {
                                 {
                                     weather[0] && weather[0].description !== ""
                                         ? <MView style={styles.card}>
+                                            <Icon prov="mci" size={60} name="alert"/>
                                             <Text style={styles.title}>{weather[0].event}</Text>
                                             <Text>{weather[0].description}</Text>
                                         </MView>
@@ -204,16 +211,18 @@ function Alerts(props) {
                                 {
                                     weather[1] && weather[1].description !== ""
                                         ? <MView style={styles.card}>
+                                            <Icon prov="mci" size={80} name="alert"/>
                                             <Text style={styles.title}>{weather[1].event}</Text>
-                                            <Text>{weather[1].description}</Text>
+                                            <Text style={styles.text}>{weather[1].description}</Text>
                                         </MView>
                                         : null
                                 }
                                 {
                                     weather[2] && weather[2].description !== ""
                                         ? <MView style={styles.card}>
+                                            <Icon prov="mci" size={80} name="alert"/>
                                             <Text style={styles.title}>{weather[2].event}</Text>
-                                            <Text>{weather[2].description}</Text>
+                                            <Text style={styles.text}>{weather[2].description}</Text>
                                         </MView>
                                         : null
                                 }
@@ -407,17 +416,32 @@ function WeatherPage(props) {
         />
         <Alerts lat={props.weather.coord.lat} lon={props.weather.coord.lon}/>
         <Card title="Ветер"
-              value={`${props.weather.wind.speed} м/с ${WeatherAPI.getWind(props.weather.wind.deg)}`}><WindLinear
-            wind={props.weather.wind.speed}/></Card>
-        <Card title="Давление" value={`${(props.weather.main.pressure / 1.333).toFixed(2)} мм.рт.ст.`}></Card>
-        <Card title="Влажность" value={`${props.weather.main.humidity} %`}><LinearProgress
-            style={{
-                borderRadius: 5,
-                height: 10,
-            }}
-            value={props.weather.main.humidity / 100} color="#00acff" variant="determinate"/></Card>
-        <Card title="Восход\Закат"
-              value={`${moment(props.weather.sys.sunrise, "X").format("HH:mm")} - ${moment(props.weather.sys.sunset, "X").format("HH:mm")}`}></Card>
+              value={`${props.weather.wind.speed} м/с ${WeatherAPI.getWind(props.weather.wind.deg)}`}
+              icon={<Icon prov="mci" size={40} name="weather-windy"/>}
+        >
+            <WindLinear wind={props.weather.wind.speed}/>
+        </Card>
+        <Card
+            title="Давление"
+            value={`${(props.weather.main.pressure / 1.333).toFixed(2)} мм.рт.ст.`}
+            icon={<Icon prov="mci" size={40} name="speedometer-medium"/>}
+        />
+        <Card
+            title="Влажность" value={`${props.weather.main.humidity} %`}
+            icon={<Icon prov="mci" size={40} name="water-percent"/>}
+        >
+            <LinearProgress
+                style={{
+                    borderRadius: 5,
+                    height: 10,
+                }}
+                value={props.weather.main.humidity / 100} color="#00acff" variant="determinate"/>
+        </Card>
+        <Card
+            title="Восход\Закат"
+            value={`${moment(props.weather.sys.sunrise, "X").format("HH:mm")} - ${moment(props.weather.sys.sunset, "X").format("HH:mm")}`}
+            icon={<Icon prov="mci" size={40} name="weather-sunset"/>}
+        />
         <CardFiveDays lat={props.weather.coord.lat} lon={props.weather.coord.lon}/>
         <View
             style={styles.separator}

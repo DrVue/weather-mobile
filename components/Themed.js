@@ -7,6 +7,7 @@ import {
     ScrollView as DefaultView,
     View as MiniView,
 } from "react-native";
+import {MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
 
 import Colors from "../constants/Colors";
 
@@ -18,6 +19,17 @@ export function useThemeColor(props, colorName) {
         return colorFromProps;
     } else {
         return Colors[theme][colorName];
+    }
+}
+
+export function Icon(props) {
+    const { style, lightColor, darkColor, ...otherProps } = props;
+    const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
+
+    if (props.prov === "mi") {
+        return <MaterialIcons style={[{ color }, style]} {...otherProps} />;
+    } else if (props.prov === "mci") {
+        return <MaterialCommunityIcons style={[{ color }, style]} {...otherProps} />;
     }
 }
 
