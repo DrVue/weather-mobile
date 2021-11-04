@@ -116,12 +116,12 @@ function Card(props) {
 
     const styles = StyleSheet.create({
         card: {
-            padding: 5,
+            padding: 10,
             marginTop: 5,
             marginBottom: 5,
             width: "100%",
             backgroundColor: colorScheme === "dark" ? "#333" : "#ddd",
-            borderRadius: 5,
+            borderRadius: 20,
         },
         cardTextBig: {
             fontSize: 40,
@@ -129,7 +129,7 @@ function Card(props) {
         title: {
             fontWeight: "bold",
         }
-    })
+    });
 
     return <View style={styles.card}>
         <Text style={styles.title}>{props.title}</Text>
@@ -139,38 +139,18 @@ function Card(props) {
 }
 
 function Alerts(props) {
-    const [weather, setWeather] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-
-    function getWeather() {
-        axios.post("http://194.67.78.244:3010/locate/period", {
-            lan: props.lat,
-            lon: props.lon,
-        }).then((d) => {
-            console.log(d.data.weather.alerts)
-            setWeather(d.data.weather.alerts);
-            setIsLoading(false);
-        })
-    }
-
-    useEffect(() => {
-        if (isLoading) {
-            getWeather();
-        }
-    });
-
     const colorScheme = useColorScheme();
 
     const styles = StyleSheet.create({
         card: {
             flex: 1,
             alignItems: "center",
-            padding: 5,
+            padding: 10,
             marginTop: 5,
             marginBottom: 5,
             width: "100%",
             backgroundColor: colorScheme === "dark" ? "#fa0" : "#fa0",
-            borderRadius: 5,
+            borderRadius: 20,
         },
         cardTextBig: {
             fontSize: 40,
@@ -194,35 +174,35 @@ function Alerts(props) {
 
     return <MView>
         {
-            !isLoading
+            !props.isLoading
                 ? <MView>
                     {
-                        weather
+                        props.weather.alerts
                             ? <MView>
                                 {
-                                    weather[0] && weather[0].description !== ""
+                                    props.weather.alerts[0] && props.weather.alerts[0].description !== ""
                                         ? <MView style={styles.card}>
-                                            <Icon prov="mci" size={60} name="alert"/>
-                                            <Text style={styles.title}>{weather[0].event}</Text>
-                                            <Text>{weather[0].description}</Text>
+                                            <Icon prov="mci" size={80} name="alert"/>
+                                            <Text style={styles.title}>{props.weather.alerts[0].event}</Text>
+                                            <Text style={styles.text}>{props.weather.alerts[0].description}</Text>
                                         </MView>
                                         : null
                                 }
                                 {
-                                    weather[1] && weather[1].description !== ""
+                                    props.weather.alerts[1] && props.weather.alerts[1].description !== ""
                                         ? <MView style={styles.card}>
                                             <Icon prov="mci" size={80} name="alert"/>
-                                            <Text style={styles.title}>{weather[1].event}</Text>
-                                            <Text style={styles.text}>{weather[1].description}</Text>
+                                            <Text style={styles.title}>{props.weather.alerts[1].event}</Text>
+                                            <Text style={styles.text}>{props.weather.alerts[1].description}</Text>
                                         </MView>
                                         : null
                                 }
                                 {
-                                    weather[2] && weather[2].description !== ""
+                                    props.weather.alerts[2] && props.weather.alerts[2].description !== ""
                                         ? <MView style={styles.card}>
                                             <Icon prov="mci" size={80} name="alert"/>
-                                            <Text style={styles.title}>{weather[2].event}</Text>
-                                            <Text style={styles.text}>{weather[2].description}</Text>
+                                            <Text style={styles.title}>{props.weather.alerts[2].event}</Text>
+                                            <Text style={styles.text}>{props.weather.alerts[2].description}</Text>
                                         </MView>
                                         : null
                                 }
@@ -238,35 +218,16 @@ function Alerts(props) {
 }
 
 function CardFiveDays(props) {
-    const [weather, setWeather] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-
-    function getWeather() {
-        axios.post("http://194.67.78.244:3010/locate/period", {
-            lan: props.lat,
-            lon: props.lon,
-        }).then((d) => {
-            setWeather(d.data.weather.daily);
-            setIsLoading(false);
-        })
-    }
-
-    useEffect(() => {
-        if (isLoading) {
-            getWeather();
-        }
-    });
-
     const colorScheme = useColorScheme();
 
     const styles = StyleSheet.create({
         card: {
-            padding: 5,
+            padding: 10,
             marginTop: 5,
             marginBottom: 5,
             width: "100%",
             backgroundColor: colorScheme === "dark" ? "#333" : "#ddd",
-            borderRadius: 5,
+            borderRadius: 20,
         },
         cardTextBig: {
             fontSize: 40,
@@ -287,6 +248,8 @@ function CardFiveDays(props) {
     function Day(props) {
         const colorScheme = useColorScheme();
 
+        console.log(props.daily);
+
         return <MView style={{
             flex: 1,
             flexDirection: "column",
@@ -297,9 +260,9 @@ function CardFiveDays(props) {
             borderRightColor: colorScheme === "dark" ? "rgba(255,255,255,0.1)" : "#eee",
             borderRightStyle: "solid",
         }}>
-            <Text>{moment(props.w.dt, "X").format("DD/MM")}</Text>
-            {WeatherAPI.getIconWeather(props.w.weather[0].id, props.w.weather[0].icon, colorScheme === "dark" ? "white" : "black", 40)}
-            <Text>{props.w.temp.max.toFixed(1)} °C</Text>
+            <Text>{moment(props.daily.dt, "X").format("DD/MM")}</Text>
+            {WeatherAPI.getIconWeather(props.daily.weather[0].id, props.daily.weather[0].icon, colorScheme === "dark" ? "white" : "black", 40)}
+            <Text>{props.daily.temp.max.toFixed(1)} °C</Text>
             <View
                 style={{
                     marginVertical: 1,
@@ -310,7 +273,7 @@ function CardFiveDays(props) {
                 lightColor="#eee"
                 darkColor="rgba(255,255,255,0.1)"
             />
-            <Text>{props.w.temp.min.toFixed(1)} °C</Text>
+            <Text>{props.daily.temp.min.toFixed(1)} °C</Text>
         </MView>
     }
 
@@ -337,17 +300,17 @@ function CardFiveDays(props) {
         <MView style={styles.card}>
             <Text style={styles.title}>Прогноз на пять дней</Text>
             {
-                !isLoading
+                !props.isLoading
                     ? <MView style={{
                         flex: 1,
                         flexDirection: "row",
                         backgroundColor: "transparent",
                     }}>
-                        <Day w={weather[1]}/>
-                        <Day w={weather[2]}/>
-                        <Day w={weather[3]}/>
-                        <Day w={weather[4]}/>
-                        <Day w={weather[5]} end/>
+                        <Day daily={props.daily.daily[1]}/>
+                        <Day daily={props.daily.daily[2]}/>
+                        <Day daily={props.daily.daily[3]}/>
+                        <Day daily={props.daily.daily[4]}/>
+                        <Day daily={props.daily.daily[5]} end/>
                     </MView>
                     : <MView style={styles.containerLoading}>
                         <ActivityIndicator size="large" color="#0000ff"/>
@@ -357,16 +320,16 @@ function CardFiveDays(props) {
         <MView style={styles.card}>
             <Text style={styles.title}>В течении дня</Text>
             {
-                !isLoading
+                !props.isLoading
                     ? <MView style={{
                         flex: 1,
                         flexDirection: "row",
                         backgroundColor: "transparent",
                     }}>
-                        <InDay temp={weather[0].temp.night} w={weather[0]} text="Ночь"/>
-                        <InDay temp={weather[0].temp.morn} w={weather[0]} text="Утро"/>
-                        <InDay temp={weather[0].temp.day} w={weather[0]} text="День"/>
-                        <InDay temp={weather[0].temp.eve} w={weather[0]} text="Вечер" end/>
+                        <InDay temp={props.daily.daily[0].temp.night} w={props.daily.daily[0]} text="Ночь"/>
+                        <InDay temp={props.daily.daily[0].temp.morn} w={props.daily.daily[0]} text="Утро"/>
+                        <InDay temp={props.daily.daily[0].temp.day} w={props.daily.daily[0]} text="День"/>
+                        <InDay temp={props.daily.daily[0].temp.eve} w={props.daily.daily[0]} text="Вечер" end/>
                     </MView>
                     : <MView style={styles.containerLoading}>
                         <ActivityIndicator size="large" color="#0000ff"/>
@@ -399,62 +362,70 @@ function WeatherPage(props) {
             height: 1,
             width: "100%",
         },
+        secondView: {
+            backgroundColor: colorScheme === "dark" ? "black" : "white",
+            paddingTop: 10,
+            paddingLeft: 10,
+            paddingRight: 10,
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+            bottom: 20,
+        },
+        firstView: {
+            backgroundColor: "gray",
+            paddingTop: 10,
+            paddingLeft: 10,
+            paddingRight: 10,
+        }
     });
 
     return <View>
-        <Text
-            style={styles.tempText}>{WeatherAPI.getIconWeather(props.weather.weather[0].id, props.weather.weather[0].icon, colorScheme === "dark" ? "white" : "black", 100)}</Text>
-        <Text
-            style={styles.tempText}>{props.weather.main.temp.toFixed(1)} °C</Text>
-        <View
-            style={styles.separator}
-            lightColor="#eee"
-            darkColor="rgba(255,255,255,0.1)"
-        />
-        <Text style={styles.title}>{props.weather.name} ({props.weather.sys.country})</Text>
-        <Text style={styles.text}>{props.weather.weather[0].description}</Text>
-        <Text style={styles.text}>{props.weather.main.temp_min.toFixed(1)} °C
-            / {props.weather.main.temp_max.toFixed(1)} °C</Text>
-        <Text style={styles.text}>Ощущается как {props.weather.main.feels_like.toFixed(1)} °C</Text>
-        <View
-            style={styles.separator}
-            lightColor="#eee"
-            darkColor="rgba(255,255,255,0.1)"
-        />
-        <Alerts lat={props.weather.coord.lat} lon={props.weather.coord.lon}/>
-        <Card title="Ветер"
-              value={`${props.weather.wind.speed} м/с ${WeatherAPI.getWind(props.weather.wind.deg)}`}
-              icon={<Icon prov="mci" size={40} name="weather-windy"/>}
-        >
-            <WindLinear wind={props.weather.wind.speed}/>
-        </Card>
-        <Card
-            title="Давление"
-            value={`${(props.weather.main.pressure / 1.333).toFixed(2)} мм.рт.ст.`}
-            icon={<Icon prov="mci" size={40} name="speedometer-medium"/>}
-        />
-        <Card
-            title="Влажность" value={`${props.weather.main.humidity} %`}
-            icon={<Icon prov="mci" size={40} name="water-percent"/>}
-        >
-            <LinearProgress
-                style={{
-                    borderRadius: 5,
-                    height: 10,
-                }}
-                value={props.weather.main.humidity / 100} color="#00acff" variant="determinate"/>
-        </Card>
-        <Card
-            title="Восход\Закат"
-            value={`${moment(props.weather.sys.sunrise, "X").format("HH:mm")} - ${moment(props.weather.sys.sunset, "X").format("HH:mm")}`}
-            icon={<Icon prov="mci" size={40} name="weather-sunset"/>}
-        />
-        <CardFiveDays lat={props.weather.coord.lat} lon={props.weather.coord.lon}/>
-        <View
-            style={styles.separator}
-            lightColor="#eee"
-            darkColor="rgba(255,255,255,0.1)"
-        />
+        <MView style={styles.firstView}>
+            <MView style={{marginTop: 30}}/>
+            <Text
+                style={styles.tempText}>{WeatherAPI.getIconWeather(props.weather.weather[0].id, props.weather.weather[0].icon, colorScheme === "dark" ? "white" : "black", 100)}</Text>
+            <Text
+                style={styles.tempText}>{props.weather.main.temp.toFixed(1)} °C</Text>
+            <MView style={{marginTop: 30}}/>
+            <Text style={styles.title}>{props.weather.name} ({props.weather.sys.country})</Text>
+            <Text style={styles.text}>{props.weather.weather[0].description}</Text>
+            <Text style={styles.text}>{props.weather.main.temp_min.toFixed(1)} °C
+                / {props.weather.main.temp_max.toFixed(1)} °C</Text>
+            <Text style={styles.text}>Ощущается как {props.weather.main.feels_like.toFixed(1)} °C</Text>
+            <MView style={{marginTop: 30}}/>
+        </MView>
+        <MView style={styles.secondView}>
+            <Alerts weather={props.weatherPeriod} isLoading={props.isLoadingPeriod}/>
+            <Card title="Ветер"
+                  value={`${props.weather.wind.speed} м/с ${WeatherAPI.getWind(props.weather.wind.deg)}`}
+                  icon={<Icon prov="mci" size={40} name="weather-windy"/>}
+            >
+                <WindLinear wind={props.weather.wind.speed}/>
+            </Card>
+            <Card
+                title="Давление"
+                value={`${(props.weather.main.pressure / 1.333).toFixed(2)} мм.рт.ст.`}
+                icon={<Icon prov="mci" size={40} name="speedometer-medium"/>}
+            />
+            <Card
+                title="Влажность" value={`${props.weather.main.humidity} %`}
+                icon={<Icon prov="mci" size={40} name="water-percent"/>}
+            >
+                <LinearProgress
+                    style={{
+                        borderRadius: 5,
+                        height: 10,
+                    }}
+                    value={props.weather.main.humidity / 100} color="#00acff" variant="determinate"/>
+            </Card>
+            <Card
+                title="Восход\Закат"
+                value={`${moment(props.weather.sys.sunrise, "X").format("HH:mm")} - ${moment(props.weather.sys.sunset, "X").format("HH:mm")}`}
+                icon={<Icon prov="mci" size={40} name="weather-sunset"/>}
+            />
+            <CardFiveDays daily={props.weatherPeriod} isLoading={props.isLoadingPeriod}/>
+        </MView>
+        <MView style={{marginTop: 30}}/>
     </View>
 }
 

@@ -22,6 +22,8 @@ export default function TabOneScreen({navigation, route}) {
     const [weather, setWeather] = useState({});
     const [location, setLocation] = useState(null);
     const [errMsg, setErrMsg] = useState(null);
+    const [weatherPeriod, setWeatherPeriod] = useState({});
+    const [isLoadingPeriod, setIsLoadingPeriod] = useState(true);
 
     function getWeatherLocate(locate) {
         axios.post("http://194.67.78.244:3010/locate/one", {
@@ -29,7 +31,22 @@ export default function TabOneScreen({navigation, route}) {
             lon: locate.coords.longitude,
         }).then((d) => {
             setWeather(d.data.weather);
+            getWeatherPeriod(locate);
             setIsLoading(false);
+        })
+    }
+
+    function getWeatherPeriod(locate) {
+        axios.post("http://194.67.78.244:3010/locate/period", {
+            lan: locate.coords.latitude,
+            lon: locate.coords.longitude,
+        }).then((d) => {
+            setWeatherPeriod({
+                daily: d.data.weather.daily,
+                alerts: d.data.weather.alerts
+            });
+            // console.log(d.data.weather.daily);
+            setIsLoadingPeriod(false);
         })
     }
 
@@ -51,10 +68,11 @@ export default function TabOneScreen({navigation, route}) {
 
     return (
         <View style={styles.container}>
-            <MView style={{marginTop: 30}}/>
+
             {
                 !isLoading
-                    ? <WeatherPage styles={styles} weather={weather}/>
+                    ? <WeatherPage styles={styles} weather={weather} weatherPeriod={weatherPeriod}
+                                   isLoadingPeriod={isLoadingPeriod}/>
                     : <MView style={styles.containerLoading}>
                         <ActivityIndicator size="large" color="#0000ff"/>
                     </MView>
@@ -66,9 +84,7 @@ export default function TabOneScreen({navigation, route}) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 10,
-        paddingLeft: 10,
-        paddingRight: 10,
+
         // alignItems: "center",
         // textAlign: "center",
         // justifyContent: "start",

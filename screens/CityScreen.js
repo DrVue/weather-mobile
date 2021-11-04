@@ -17,6 +17,8 @@ import WeatherPage from "../components/WeatherPage";
 export default function CityScreen({navigation, route}) {
     const [isLoading, setIsLoading] = useState(true);
     const [weather, setWeather] = useState({});
+    const [weatherPeriod, setWeatherPeriod] = useState({});
+    const [isLoadingPeriod, setIsLoadingPeriod] = useState(true);
     const [city, setCity] = useState(route.params.city);
 
     function getWeather(c = city) {
@@ -25,7 +27,21 @@ export default function CityScreen({navigation, route}) {
             lon: route.params.lon,
         }).then((d) => {
             setWeather(d.data.weather);
+            getWeatherPeriod();
             setIsLoading(false);
+        })
+    }
+
+    function getWeatherPeriod() {
+        axios.post("http://194.67.78.244:3010/locate/period", {
+            lan: route.params.lat,
+            lon: route.params.lon,
+        }).then((d) => {
+            setWeatherPeriod({
+                daily: d.data.weather.daily,
+                alerts: d.data.weather.alerts
+            });
+            setIsLoadingPeriod(false);
         })
     }
 
@@ -41,10 +57,10 @@ export default function CityScreen({navigation, route}) {
 
     return (
         <View style={styles.container}>
-            <MView style={{marginTop: 30}}/>
             {
                 !isLoading
-                    ? <WeatherPage styles={styles} weather={weather}/>
+                    ? <WeatherPage styles={styles} weather={weather} weatherPeriod={weatherPeriod}
+                                   isLoadingPeriod={isLoadingPeriod}/>
                     : <MView style={styles.containerLoading}>
                         <ActivityIndicator size="large" color="#0000ff"/>
                     </MView>
@@ -56,9 +72,6 @@ export default function CityScreen({navigation, route}) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 10,
-        paddingLeft: 10,
-        paddingRight: 10,
         // alignItems: "start",
         // justifyContent: "start",
     },
