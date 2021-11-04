@@ -293,6 +293,9 @@ function CardFiveDays(props) {
             justifyContent: "center",
             alignItems: "center",
             backgroundColor: "transparent",
+            borderRightWidth: props.end ? 0 : 1,
+            borderRightColor: colorScheme === "dark" ? "rgba(255,255,255,0.1)" : "#eee",
+            borderRightStyle: "solid",
         }}>
             <Text>{moment(props.w.dt, "X").format("DD/MM")}</Text>
             {WeatherAPI.getIconWeather(props.w.weather[0].id, props.w.weather[0].icon, colorScheme === "dark" ? "white" : "black", 40)}
@@ -320,6 +323,9 @@ function CardFiveDays(props) {
             justifyContent: "center",
             alignItems: "center",
             backgroundColor: "transparent",
+            borderRightWidth: props.end ? 0 : 1,
+            borderRightColor: colorScheme === "dark" ? "rgba(255,255,255,0.1)" : "#eee",
+            borderRightStyle: "solid",
         }}>
             <Text>{props.text}</Text>
             {WeatherAPI.getIconWeather(props.w.weather[0].id, props.w.weather[0].icon, colorScheme === "dark" ? "white" : "black", 40)}
@@ -341,7 +347,7 @@ function CardFiveDays(props) {
                         <Day w={weather[2]}/>
                         <Day w={weather[3]}/>
                         <Day w={weather[4]}/>
-                        <Day w={weather[5]}/>
+                        <Day w={weather[5]} end/>
                     </MView>
                     : <MView style={styles.containerLoading}>
                         <ActivityIndicator size="large" color="#0000ff"/>
@@ -360,7 +366,7 @@ function CardFiveDays(props) {
                         <InDay temp={weather[0].temp.night} w={weather[0]} text="Ночь"/>
                         <InDay temp={weather[0].temp.morn} w={weather[0]} text="Утро"/>
                         <InDay temp={weather[0].temp.day} w={weather[0]} text="День"/>
-                        <InDay temp={weather[0].temp.eve} w={weather[0]} text="Вечер"/>
+                        <InDay temp={weather[0].temp.eve} w={weather[0]} text="Вечер" end/>
                     </MView>
                     : <MView style={styles.containerLoading}>
                         <ActivityIndicator size="large" color="#0000ff"/>
@@ -404,8 +410,9 @@ function WeatherPage(props) {
             lightColor="#eee"
             darkColor="rgba(255,255,255,0.1)"
         />
+        <Text style={styles.tempText}>{WeatherAPI.getIconWeather(props.weather.weather[0].id, props.weather.weather[0].icon, colorScheme === "dark" ? "white" : "black", 100)}</Text>
         <Text
-            style={styles.tempText}>{WeatherAPI.getIconWeather(props.weather.weather[0].id, props.weather.weather[0].icon, colorScheme === "dark" ? "white" : "black",)} {props.weather.main.temp.toFixed(1)} °C</Text>
+            style={styles.tempText}>{props.weather.main.temp.toFixed(1)} °C</Text>
         <Text style={styles.text}>{props.weather.main.temp_min.toFixed(1)} °C
             / {props.weather.main.temp_max.toFixed(1)} °C</Text>
         <Text style={styles.text}>Ощущается как {props.weather.main.feels_like.toFixed(1)} °C</Text>
