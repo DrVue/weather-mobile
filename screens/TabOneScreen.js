@@ -10,7 +10,7 @@ import {
     ActivityIndicator
 } from "react-native";
 
-import {Text, View} from "../components/Themed";
+import {MView, Text, View} from "../components/Themed";
 import axios from "react-native-axios";
 import moment from "moment";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
@@ -54,9 +54,9 @@ export default function TabOneScreen({navigation, route}) {
             {
                 !isLoading
                     ? <WeatherPage styles={styles} weather={weather}/>
-                    : <View style={styles.containerLoading}>
+                    : <MView style={styles.containerLoading}>
                         <ActivityIndicator size="large" color="#0000ff"/>
-                    </View>
+                    </MView>
             }
         </View>
     );

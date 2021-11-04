@@ -38,38 +38,38 @@ class WeatherAPI {
         }
     }
 
-    static getIconWeather(code, icon = "01d", color = "white") {
+    static getIconWeather(code, icon = "01d", color = "white", size = 50) {
         const c = code.toString();
         if (c[0] === "2") {
-            return <MaterialCommunityIcons size={50} style={{marginBottom: -3}} name="weather-cloudy" color={color}/>;
+            return <MaterialCommunityIcons size={size} style={{marginBottom: -3}} name="weather-cloudy" color={color}/>;
         } else if (c[0] === "3") {
-            return <MaterialCommunityIcons size={50} style={{marginBottom: -3}} name="weather-rainy" color={color}/>;
+            return <MaterialCommunityIcons size={size} style={{marginBottom: -3}} name="weather-rainy" color={color}/>;
         } else if (c[0] === "5") {
-            return <MaterialCommunityIcons size={50} style={{marginBottom: -3}} name="weather-rainy" color={color}/>;
+            return <MaterialCommunityIcons size={size} style={{marginBottom: -3}} name="weather-rainy" color={color}/>;
         } else if (c[0] === "6") {
-            return <MaterialCommunityIcons size={50} style={{marginBottom: -3}} name="weather-snowy" color={color}/>;
+            return <MaterialCommunityIcons size={size} style={{marginBottom: -3}} name="weather-snowy" color={color}/>;
         } else if (c === "731" || c === "771" || c === "781") {
-            return <MaterialCommunityIcons size={50} style={{marginBottom: -3}} name="weather-windy" color={color}/>;
+            return <MaterialCommunityIcons size={size} style={{marginBottom: -3}} name="weather-windy" color={color}/>;
         } else if (c[0] === "7") {
-            return <MaterialCommunityIcons size={50} style={{marginBottom: -3}} name="weather-fog" color={color}/>;
+            return <MaterialCommunityIcons size={size} style={{marginBottom: -3}} name="weather-fog" color={color}/>;
         } else if (c === "800") {
             if (icon[2] === "d") {
-                return <MaterialCommunityIcons size={50} style={{marginBottom: -3}} name="weather-sunny"
+                return <MaterialCommunityIcons size={size} style={{marginBottom: -3}} name="weather-sunny"
                                                color={color}/>;
             } else if (icon[2] === "n") {
-                return <MaterialCommunityIcons size={50} style={{marginBottom: -3}} name="weather-night"
+                return <MaterialCommunityIcons size={size} style={{marginBottom: -3}} name="weather-night"
                                                color={color}/>;
             }
         } else if (c === "801" || c === "802") {
             if (icon[2] === "d") {
-                return <MaterialCommunityIcons size={50} style={{marginBottom: -3}} name="weather-partly-cloudy"
+                return <MaterialCommunityIcons size={size} style={{marginBottom: -3}} name="weather-partly-cloudy"
                                                color={color}/>;
             } else if (icon[2] === "n") {
-                return <MaterialCommunityIcons size={50} style={{marginBottom: -3}} name="weather-night-partly-cloudy"
+                return <MaterialCommunityIcons size={size} style={{marginBottom: -3}} name="weather-night-partly-cloudy"
                                                color={color}/>;
             }
         } else if (c === "803" || c === "804") {
-            return <MaterialCommunityIcons size={50} style={{marginBottom: -3}} name="weather-cloudy" color={color}/>;
+            return <MaterialCommunityIcons size={size} style={{marginBottom: -3}} name="weather-cloudy" color={color}/>;
         }
     }
 }

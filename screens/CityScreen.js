@@ -10,7 +10,7 @@ import {
     ActivityIndicator
 } from "react-native";
 
-import {Text, View} from "../components/Themed";
+import {MView, Text, View} from "../components/Themed";
 import axios from "react-native-axios";
 import WeatherPage from "../components/WeatherPage";
 
@@ -43,9 +43,9 @@ export default function CityScreen({navigation, route}) {
             {
                 !isLoading
                     ? <WeatherPage styles={styles} weather={weather}/>
-                    : <View style={styles.containerLoading}>
+                    : <MView style={styles.containerLoading}>
                         <ActivityIndicator size="large" color="#0000ff"/>
-                    </View>
+                    </MView>
             }
         </View>
     );
@@ -64,8 +64,6 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 10,
         paddingLeft: 10,
-        alignItems: "center",
-        justifyContent: "center",
     },
     separator: {
         marginVertical: 20,

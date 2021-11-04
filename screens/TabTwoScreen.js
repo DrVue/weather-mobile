@@ -1,14 +1,19 @@
 import {Platform, StyleSheet} from "react-native";
 
-import {Text, View} from "../components/Themed";
+import {MView, Text, View} from "../components/Themed";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
+import React from "react";
 
 export default function TabTwoScreen({route}) {
     return (
-        <View style={styles.container}>
+        <View style={styles.container} contentContainerStyle={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "flex-start",
+        }}>
             <MaterialCommunityIcons size={100} style={{marginBottom: -3}} name="weather-cloudy" color="white"/>
             <Text style={styles.title}>О приложении "Погода"</Text>
-            <View
+            <MView
                 style={styles.separator}
                 lightColor="#eee"
                 darkColor="rgba(255,255,255,0.1)"
@@ -47,9 +52,7 @@ export default function TabTwoScreen({route}) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
+
     },
     title: {
         fontSize: 20,
