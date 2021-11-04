@@ -5,6 +5,7 @@ import WeatherAPI from "../api";
 import {ActivityIndicator, StyleSheet, useColorScheme} from "react-native";
 import {LinearProgress, Button} from "react-native-elements";
 import axios from "react-native-axios";
+import {isLoading} from "expo-font";
 
 function WindLinear(props) {
     function getScore(wind = props.wind) {
@@ -149,7 +150,8 @@ function Alerts(props) {
             marginTop: 5,
             marginBottom: 5,
             width: "100%",
-            backgroundColor: colorScheme === "dark" ? "#fa0" : "#fa0",
+            backgroundColor: colorScheme === "dark" ? "#333" : "#ddd",
+            // backgroundColor: colorScheme === "dark" ? "#fa0" : "#fa0",
             borderRadius: 20,
         },
         cardTextBig: {
@@ -172,7 +174,7 @@ function Alerts(props) {
         }
     });
 
-    return <MView>
+    const n = <MView>
         {
             !props.isLoading
                 ? <MView>
@@ -214,7 +216,18 @@ function Alerts(props) {
                     <ActivityIndicator size="large" color="#0000ff"/>
                 </MView>
         }
+
     </MView>
+
+    return !props.isLoading
+        ? <MView>
+            {
+                props.weather.alerts
+                    ? <Button buttonStyle={styles.card} title="Служебная информация" icon={<Icon prov="mci" size={20} name="alert"/>}/>
+                    : null
+            }
+        </MView>
+        : null
 }
 
 function CardFiveDays(props) {
@@ -347,13 +360,16 @@ function WeatherPage(props) {
             fontSize: 20,
             fontWeight: "bold",
             textAlign: "center",
+            color: "#fff",
         },
         text: {
             textAlign: "center",
+            color: "#fff",
         },
         tempText: {
             fontSize: 50,
             textAlign: "center",
+            color: "#fff",
         },
         tempMiniText: {},
         separator: {
@@ -372,22 +388,28 @@ function WeatherPage(props) {
             bottom: 20,
         },
         firstView: {
-            backgroundColor: "gray",
+            backgroundColor: WeatherAPI.getColor(props.weather.weather[0].id, props.weather.weather[0].icon),
             paddingTop: 10,
             paddingLeft: 10,
             paddingRight: 10,
-        }
+        },
     });
 
     return <View>
         <MView style={styles.firstView}>
             <MView style={{marginTop: 30}}/>
             <Text
-                style={styles.tempText}>{WeatherAPI.getIconWeather(props.weather.weather[0].id, props.weather.weather[0].icon, colorScheme === "dark" ? "white" : "black", 100)}</Text>
+                style={styles.tempText}>{WeatherAPI.getIconWeather(props.weather.weather[0].id, props.weather.weather[0].icon, colorScheme === "dark" ? "white" : "white", 100)}</Text>
             <Text
                 style={styles.tempText}>{props.weather.main.temp.toFixed(1)} °C</Text>
             <MView style={{marginTop: 30}}/>
-            <Text style={styles.title}>{props.weather.name} ({props.weather.sys.country})</Text>
+            <Text style={styles.title}>
+                {
+                    props.loc
+                        ? <Icon prov="mi" name="location-on" size={15}/>
+                        : null
+                }
+            {props.weather.name} ({props.weather.sys.country})</Text>
             <Text style={styles.text}>{props.weather.weather[0].description}</Text>
             <Text style={styles.text}>{props.weather.main.temp_min.toFixed(1)} °C
                 / {props.weather.main.temp_max.toFixed(1)} °C</Text>
@@ -396,6 +418,7 @@ function WeatherPage(props) {
         </MView>
         <MView style={styles.secondView}>
             <Alerts weather={props.weatherPeriod} isLoading={props.isLoadingPeriod}/>
+            <CardFiveDays daily={props.weatherPeriod} isLoading={props.isLoadingPeriod}/>
             <Card title="Ветер"
                   value={`${props.weather.wind.speed} м/с ${WeatherAPI.getWind(props.weather.wind.deg)}`}
                   icon={<Icon prov="mci" size={40} name="weather-windy"/>}
@@ -404,7 +427,7 @@ function WeatherPage(props) {
             </Card>
             <Card
                 title="Давление"
-                value={`${(props.weather.main.pressure / 1.333).toFixed(2)} мм.рт.ст.`}
+                value={`${(props.weather.main.pressure / 1.333).toFixed(1)} мм.рт.ст.`}
                 icon={<Icon prov="mci" size={40} name="speedometer-medium"/>}
             />
             <Card
@@ -423,7 +446,7 @@ function WeatherPage(props) {
                 value={`${moment(props.weather.sys.sunrise, "X").format("HH:mm")} - ${moment(props.weather.sys.sunset, "X").format("HH:mm")}`}
                 icon={<Icon prov="mci" size={40} name="weather-sunset"/>}
             />
-            <CardFiveDays daily={props.weatherPeriod} isLoading={props.isLoadingPeriod}/>
+
         </MView>
         <MView style={{marginTop: 30}}/>
     </View>

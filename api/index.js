@@ -72,6 +72,37 @@ class WeatherAPI {
             return <MaterialCommunityIcons size={size} style={{marginBottom: -3}} name="weather-cloudy" color={color}/>;
         }
     }
+
+    static getColor(code, icon = "01d") {
+        const c = code.toString();
+        if (c[0] === "2") {
+            return "#888";
+        } else if (c[0] === "3") {
+            return "#666666";
+        } else if (c[0] === "5") {
+            return "#666666";
+        } else if (c[0] === "6") {
+            return "#666666";
+        } else if (c === "731" || c === "771" || c === "781") {
+            return "#666666";
+        } else if (c[0] === "7") {
+            return "#888";
+        } else if (c === "800") {
+            if (icon[2] === "d") {
+                return "#3e74eb";
+            } else if (icon[2] === "n") {
+                return "#252850";
+            }
+        } else if (c === "801" || c === "802") {
+            if (icon[2] === "d") {
+                return "#3e74eb";
+            } else if (icon[2] === "n") {
+                return "#252850";
+            }
+        } else if (c === "803" || c === "804") {
+            return "#888";
+        }
+    }
 }
 
 export default WeatherAPI;

@@ -26,7 +26,7 @@ export default function BottomTabNavigator() {
                 component={TabOneNavigator}
                 options={{
                     tabBarIcon: ({color}) => (
-                        <MaterialIcons size={30} style={{marginBottom: -3}} name="my-location" color={color}/>
+                        <MaterialIcons size={30} style={{marginBottom: -3}} name="location-on" color={color}/>
                     ),
                 }}
             />

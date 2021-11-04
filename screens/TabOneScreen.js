@@ -72,7 +72,7 @@ export default function TabOneScreen({navigation, route}) {
             {
                 !isLoading
                     ? <WeatherPage styles={styles} weather={weather} weatherPeriod={weatherPeriod}
-                                   isLoadingPeriod={isLoadingPeriod}/>
+                                   isLoadingPeriod={isLoadingPeriod} loc/>
                     : <MView style={styles.containerLoading}>
                         <ActivityIndicator size="large" color="#0000ff"/>
                     </MView>
