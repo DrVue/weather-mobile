@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {SearchBar, ListItem} from "react-native-elements";
 import axios from "react-native-axios";
-import {Text, View} from "../components/Themed";
+import {MView, Text, View} from "../components/Themed";
 import {StyleSheet, useColorScheme, ActivityIndicator} from "react-native";
 
 import {
@@ -64,6 +64,7 @@ export default function SearchScreen ({navigation}) {
 
 
     return <View>
+        <MView style={{marginTop: 30}}/>
             <SearchBar
                 placeholder="Поиск по городу..."
                 onChangeText={text => setCity(text)}

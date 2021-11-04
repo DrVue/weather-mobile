@@ -7,6 +7,7 @@ import {
     ScrollView as DefaultView,
     View as MiniView,
 } from "react-native";
+import {Button} from "react-native-elements";
 import {MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
 
 import Colors from "../constants/Colors";

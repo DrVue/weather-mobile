@@ -3,7 +3,7 @@ import {Text, View, MView, Icon} from "./Themed";
 import moment from "moment";
 import WeatherAPI from "../api";
 import {ActivityIndicator, StyleSheet, useColorScheme} from "react-native";
-import {LinearProgress} from "react-native-elements";
+import {LinearProgress, Button} from "react-native-elements";
 import axios from "react-native-axios";
 
 function WindLinear(props) {
@@ -402,17 +402,17 @@ function WeatherPage(props) {
     });
 
     return <View>
-        <Text style={styles.title}>{props.weather.name}</Text>
-
-        <Text style={styles.text}>{props.weather.weather[0].description}</Text>
+        <Text
+            style={styles.tempText}>{WeatherAPI.getIconWeather(props.weather.weather[0].id, props.weather.weather[0].icon, colorScheme === "dark" ? "white" : "black", 100)}</Text>
+        <Text
+            style={styles.tempText}>{props.weather.main.temp.toFixed(1)} °C</Text>
         <View
             style={styles.separator}
             lightColor="#eee"
             darkColor="rgba(255,255,255,0.1)"
         />
-        <Text style={styles.tempText}>{WeatherAPI.getIconWeather(props.weather.weather[0].id, props.weather.weather[0].icon, colorScheme === "dark" ? "white" : "black", 100)}</Text>
-        <Text
-            style={styles.tempText}>{props.weather.main.temp.toFixed(1)} °C</Text>
+        <Text style={styles.title}>{props.weather.name}</Text>
+        <Text style={styles.text}>{props.weather.weather[0].description}</Text>
         <Text style={styles.text}>{props.weather.main.temp_min.toFixed(1)} °C
             / {props.weather.main.temp_max.toFixed(1)} °C</Text>
         <Text style={styles.text}>Ощущается как {props.weather.main.feels_like.toFixed(1)} °C</Text>

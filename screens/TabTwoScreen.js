@@ -11,6 +11,7 @@ export default function TabTwoScreen({route}) {
             alignItems: "center",
             justifyContent: "flex-start",
         }}>
+            <MView style={{marginTop: 30}}/>
             <Icon prov="mci" size={100} style={{marginBottom: -3}} name="weather-cloudy" color="white"/>
             <Text style={styles.title}>О приложении "Погода"</Text>
             <MView
@@ -44,7 +45,7 @@ export default function TabTwoScreen({route}) {
                 lightColor="rgba(0,0,0,0.8)"
                 darkColor="rgba(255,255,255,0.8)"
             >
-                v 0.4.0
+                v0.5.0 alpha
             </Text>
         </View>
     );

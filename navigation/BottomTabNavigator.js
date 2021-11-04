@@ -19,7 +19,7 @@ export default function BottomTabNavigator() {
     return (
         <BottomTab.Navigator
             initialRouteName="TabOne"
-            screenOptions={{tabBarActiveTintColor: Colors[colorScheme].tint}}
+            screenOptions={{tabBarActiveTintColor: Colors[colorScheme].tint, headerShown: false,}}
         >
             <BottomTab.Screen
                 name="Рядом"

@@ -40,6 +40,7 @@ export default function CityScreen({navigation, route}) {
 
     return (
         <View style={styles.container}>
+            <MView style={{marginTop: 30}}/>
             {
                 !isLoading
                     ? <WeatherPage styles={styles} weather={weather}/>
