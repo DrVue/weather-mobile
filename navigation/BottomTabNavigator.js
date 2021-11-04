@@ -10,6 +10,7 @@ import TabOneScreen from "../screens/TabOneScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import SearchScreen from "../screens/SearchScreen";
 import CityScreen from "../screens/CityScreen";
+import AlertsScreen from "../screens/AlertsScreen";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -65,6 +66,12 @@ function TabOneNavigator() {
                 initialParams={{}}
                 options={({route}) => ({city: route.params.city})}
             />
+            <TabOneStack.Screen
+                name="AlertsScreen"
+                component={AlertsScreen}
+                initialParams={{alerts: []}}
+                options={({route}) => ({alerts: route.params.alerts})}
+            />
         </TabOneStack.Navigator>
     );
 }
@@ -95,6 +102,12 @@ function SearchNavigator() {
                 name="CityScreen"
                 component={CityScreen}
                 initialParams={{city: "Moscow,RU"}}
+            />
+            <SearchStack.Screen
+                name="AlertsScreen"
+                component={AlertsScreen}
+                initialParams={{alerts: []}}
+                options={({route}) => ({alerts: route.params.alerts})}
             />
         </SearchStack.Navigator>
     );

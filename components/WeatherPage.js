@@ -216,18 +216,9 @@ function Alerts(props) {
                     <ActivityIndicator size="large" color="#0000ff"/>
                 </MView>
         }
-
     </MView>
 
-    return !props.isLoading
-        ? <MView>
-            {
-                props.weather.alerts
-                    ? <Button buttonStyle={styles.card} title="Служебная информация" icon={<Icon prov="mci" size={20} name="alert"/>}/>
-                    : null
-            }
-        </MView>
-        : null
+    return
 }
 
 function CardFiveDays(props) {
@@ -261,7 +252,7 @@ function CardFiveDays(props) {
     function Day(props) {
         const colorScheme = useColorScheme();
 
-        console.log(props.daily);
+        // console.log(props.daily);
 
         return <MView style={{
             flex: 1,
@@ -356,6 +347,14 @@ function WeatherPage(props) {
     const colorScheme = useColorScheme();
 
     const styles = StyleSheet.create({
+        card: {
+            padding: 10,
+            marginTop: 5,
+            marginBottom: 5,
+            width: "100%",
+            backgroundColor: colorScheme === "dark" ? "#333" : "#ddd",
+            borderRadius: 20,
+        },
         title: {
             fontSize: 20,
             fontWeight: "bold",
@@ -395,6 +394,8 @@ function WeatherPage(props) {
         },
     });
 
+    // console.log(props.weatherPeriod.alerts)
+
     return <View>
         <MView style={styles.firstView}>
             <MView style={{marginTop: 30}}/>
@@ -417,7 +418,17 @@ function WeatherPage(props) {
             <MView style={{marginTop: 30}}/>
         </MView>
         <MView style={styles.secondView}>
-            <Alerts weather={props.weatherPeriod} isLoading={props.isLoadingPeriod}/>
+            {
+                !props.isLoadingPeriod
+                    ? <MView>
+                        {
+                            props.weatherPeriod.alerts
+                                ? <Button buttonStyle={styles.card} title="Служебная информация" icon={<Icon prov="mci" size={20} name="alert"/>} onPress={() => props.navigation.navigate("AlertsScreen", {alerts: props.weatherPeriod.alerts})}/>
+                                : null
+                        }
+                    </MView>
+                    : null
+            }
             <CardFiveDays daily={props.weatherPeriod} isLoading={props.isLoadingPeriod}/>
             <Card title="Ветер"
                   value={`${props.weather.wind.speed} м/с ${WeatherAPI.getWind(props.weather.wind.deg)}`}

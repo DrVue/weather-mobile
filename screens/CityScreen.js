@@ -60,7 +60,7 @@ export default function CityScreen({navigation, route}) {
             {
                 !isLoading
                     ? <WeatherPage styles={styles} weather={weather} weatherPeriod={weatherPeriod}
-                                   isLoadingPeriod={isLoadingPeriod}/>
+                                   isLoadingPeriod={isLoadingPeriod} navigation={navigation}/>
                     : <MView style={styles.containerLoading}>
                         <ActivityIndicator size="large" color="#0000ff"/>
                     </MView>
