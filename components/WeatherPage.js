@@ -411,7 +411,7 @@ function WeatherPage(props) {
             lightColor="#eee"
             darkColor="rgba(255,255,255,0.1)"
         />
-        <Text style={styles.title}>{props.weather.name}</Text>
+        <Text style={styles.title}>{props.weather.name} ({props.weather.sys.country})</Text>
         <Text style={styles.text}>{props.weather.weather[0].description}</Text>
         <Text style={styles.text}>{props.weather.main.temp_min.toFixed(1)} °C
             / {props.weather.main.temp_max.toFixed(1)} °C</Text>

@@ -85,7 +85,7 @@ export default function SearchScreen ({navigation}) {
                 ? <View>
                     {
                         res.map((e, i) => {
-                            return <ListItem style={styles.listItem} containerStyle={styles.listItem} key={i} bottomDivider topDivider={i === 0} onPress={() => navigation.navigate("CityScreen", {city: e.name + "," + e.sys.country})}>
+                            return <ListItem style={styles.listItem} containerStyle={styles.listItem} key={i} bottomDivider topDivider={i === 0} onPress={() => navigation.navigate("CityScreen", {lat: e.coord.lat, lon: e.coord.lon})}>
                                 <Icon prov="mi" name="location-city" size={30}/>
                                 <ListItem.Content style={styles.listItem}>
                                     <ListItem.Title style={styles.text}>

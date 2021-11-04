@@ -20,8 +20,9 @@ export default function CityScreen({navigation, route}) {
     const [city, setCity] = useState(route.params.city);
 
     function getWeather(c = city) {
-        axios.post("http://194.67.78.244:3010/get/one", {
-            city: c,
+        axios.post("http://194.67.78.244:3010/locate/one", {
+            lan: route.params.lat,
+            lon: route.params.lon,
         }).then((d) => {
             setWeather(d.data.weather);
             setIsLoading(false);
