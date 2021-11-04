@@ -21,6 +21,11 @@ export default {
               TabTwoScreen: "two",
             },
           },
+          City: {
+            screens: {
+              CityScreen: "CityScreen",
+            },
+          },
         },
       },
       NotFound: "*",

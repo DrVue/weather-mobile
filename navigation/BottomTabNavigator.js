@@ -19,7 +19,7 @@ export default function BottomTabNavigator() {
     return (
         <BottomTab.Navigator
             initialRouteName="TabOne"
-            screenOptions={{tabBarActiveTintColor: Colors[colorScheme].tint, headerShown: false,}}
+            screenOptions={{tabBarActiveTintColor: Colors[colorScheme].tint, headerShown: false}}
         >
             <BottomTab.Screen
                 name="Рядом"
@@ -27,15 +27,6 @@ export default function BottomTabNavigator() {
                 options={{
                     tabBarIcon: ({color}) => (
                         <MaterialIcons size={30} style={{marginBottom: -3}} name="my-location" color={color}/>
-                    ),
-                }}
-            />
-            <BottomTab.Screen
-                name="Город"
-                component={CityNavigator}
-                options={{
-                    tabBarIcon: ({color}) => (
-                        <MaterialIcons size={30} style={{marginBottom: -3}} name="location-city" color={color}/>
                     ),
                 }}
             />
@@ -99,6 +90,11 @@ function SearchNavigator() {
             <SearchStack.Screen
                 name="SearchScreen"
                 component={SearchScreen}
+            />
+            <SearchStack.Screen
+                name="CityScreen"
+                component={CityScreen}
+                initialParams={{city: "Moscow,RU"}}
             />
         </SearchStack.Navigator>
     );

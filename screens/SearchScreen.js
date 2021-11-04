@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {SearchBar, ListItem} from "react-native-elements";
 import axios from "react-native-axios";
-import {MView, Text, View} from "../components/Themed";
+import {MView, Icon, View} from "../components/Themed";
 import {StyleSheet, useColorScheme, ActivityIndicator} from "react-native";
 
 import {
@@ -53,7 +53,7 @@ export default function SearchScreen ({navigation}) {
         },
         listItem: {
             backgroundColor: colorScheme === "dark" ? "#000" : "#fff",
-            borderColor: colorScheme === "dark" ? "#000" : "#fff",
+            // borderColor: colorScheme === "dark" ? "#000" : "#fff",
             color: colorScheme === "dark" ? "#fff" : "#000",
         },
         textSmall: {
@@ -85,7 +85,8 @@ export default function SearchScreen ({navigation}) {
                 ? <View>
                     {
                         res.map((e, i) => {
-                            return <ListItem style={styles.listItem} containerStyle={styles.listItem} key={i} bottomDivider onPress={() => navigation.navigate("CityScreen", {city: e.name + "," + e.sys.country})}>
+                            return <ListItem style={styles.listItem} containerStyle={styles.listItem} key={i} bottomDivider topDivider={i === 0} onPress={() => navigation.navigate("CityScreen", {city: e.name + "," + e.sys.country})}>
+                                <Icon prov="mi" name="location-city" size={30}/>
                                 <ListItem.Content style={styles.listItem}>
                                     <ListItem.Title style={styles.text}>
                                         {e.name}, {e.sys.country}
@@ -94,6 +95,7 @@ export default function SearchScreen ({navigation}) {
                                         {e.main.temp.toFixed(1)} °C | {e.weather[0].description}
                                     </ListItem.Subtitle>
                                 </ListItem.Content>
+                                <ListItem.Chevron/>
                             </ListItem>
                         })
                     }
