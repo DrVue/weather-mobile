@@ -18,6 +18,7 @@ export default function CityScreen({navigation, route}) {
     const [isLoading, setIsLoading] = useState(true);
     const [weather, setWeather] = useState({});
     const [weatherPeriod, setWeatherPeriod] = useState({});
+    const [err, setErr] = useState(false);
     const [isLoadingPeriod, setIsLoadingPeriod] = useState(true);
     const [city, setCity] = useState(route.params.city);
 
@@ -27,9 +28,13 @@ export default function CityScreen({navigation, route}) {
             lon: route.params.lon,
         }).then((d) => {
             setWeather(d.data.weather);
-            console.log(d.data.weather);
             getWeatherPeriod();
             setIsLoading(false);
+        }).catch(err => {
+            navigation.push("ErrorScreen");
+            setErr(true);
+            setIsLoading(false);
+            setIsLoadingPeriod(false);
         })
     }
 
@@ -59,7 +64,7 @@ export default function CityScreen({navigation, route}) {
     return (
         <View style={styles.container}>
             {
-                !isLoading
+                !isLoading && !err
                     ? <WeatherPage styles={styles} weather={weather} weatherPeriod={weatherPeriod}
                                    isLoadingPeriod={isLoadingPeriod} navigation={navigation}/>
                     : <MView style={styles.containerLoading}>

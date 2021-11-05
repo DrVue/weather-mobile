@@ -4,8 +4,6 @@ import moment from "moment";
 import WeatherAPI from "../api";
 import {ActivityIndicator, StyleSheet, useColorScheme} from "react-native";
 import {LinearProgress, Button} from "react-native-elements";
-import axios from "react-native-axios";
-import {isLoading} from "expo-font";
 import {MaterialIcons} from "@expo/vector-icons";
 
 function WindLinear(props) {
@@ -109,7 +107,7 @@ function WindLinear(props) {
             borderRadius: 5,
             height: 10,
         }} value={getScore().value} color={getScore().color} variant="determinate"/>
-        <Text style={{marginTop: 5, backgroundColor: "transparent"}}>{getScore().title}</Text>
+        <Text style={{marginTop: 5, backgroundColor: "transparent", fontFamily: "ProductSans"}}>{getScore().title}</Text>
     </View>
 }
 
@@ -127,10 +125,16 @@ function Card(props) {
         },
         cardTextBig: {
             fontSize: 40,
+            fontFamily: "ProductSans",
         },
         title: {
-            fontWeight: "bold",
-        }
+            fontFamily: "ProductSans",
+            paddingBottom: 5,
+            fontSize: 15,
+        },
+        text: {
+            fontFamily: "ProductSans",
+        },
     });
 
     return <View style={styles.card}>
@@ -138,88 +142,6 @@ function Card(props) {
         <Text style={styles.cardTextBig}>{props.icon} {props.value}</Text>
         {props.children}
     </View>
-}
-
-function Alerts(props) {
-    const colorScheme = useColorScheme();
-
-    const styles = StyleSheet.create({
-        card: {
-            flex: 1,
-            alignItems: "center",
-            padding: 10,
-            marginTop: 5,
-            marginBottom: 5,
-            width: "100%",
-            backgroundColor: colorScheme === "dark" ? "#333" : "#ddd",
-            // backgroundColor: colorScheme === "dark" ? "#fa0" : "#fa0",
-            borderRadius: 20,
-        },
-        cardTextBig: {
-            fontSize: 40,
-        },
-        containerLoading: {
-            flex: 1,
-            paddingTop: 10,
-            paddingLeft: 10,
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: "transparent",
-        },
-        title: {
-            fontWeight: "bold",
-            fontSize: 20,
-        },
-        text: {
-            textAlignVertical: "top",
-        }
-    });
-
-    const n = <MView>
-        {
-            !props.isLoading
-                ? <MView>
-                    {
-                        props.weather.alerts
-                            ? <MView>
-                                {
-                                    props.weather.alerts[0] && props.weather.alerts[0].description !== ""
-                                        ? <MView style={styles.card}>
-                                            <Icon prov="mci" size={80} name="alert"/>
-                                            <Text style={styles.title}>{props.weather.alerts[0].event}</Text>
-                                            <Text style={styles.text}>{props.weather.alerts[0].description}</Text>
-                                        </MView>
-                                        : null
-                                }
-                                {
-                                    props.weather.alerts[1] && props.weather.alerts[1].description !== ""
-                                        ? <MView style={styles.card}>
-                                            <Icon prov="mci" size={80} name="alert"/>
-                                            <Text style={styles.title}>{props.weather.alerts[1].event}</Text>
-                                            <Text style={styles.text}>{props.weather.alerts[1].description}</Text>
-                                        </MView>
-                                        : null
-                                }
-                                {
-                                    props.weather.alerts[2] && props.weather.alerts[2].description !== ""
-                                        ? <MView style={styles.card}>
-                                            <Icon prov="mci" size={80} name="alert"/>
-                                            <Text style={styles.title}>{props.weather.alerts[2].event}</Text>
-                                            <Text style={styles.text}>{props.weather.alerts[2].description}</Text>
-                                        </MView>
-                                        : null
-                                }
-                            </MView>
-                            : null
-                    }
-                </MView>
-                : <MView style={styles.containerLoading}>
-                    <ActivityIndicator size="large" color="#0000ff"/>
-                </MView>
-        }
-    </MView>
-
-    return
 }
 
 function CardFiveDays(props) {
@@ -246,8 +168,13 @@ function CardFiveDays(props) {
             backgroundColor: "transparent",
         },
         title: {
-            fontWeight: "bold",
-        }
+            fontFamily: "ProductSans",
+            paddingBottom: 5,
+            fontSize: 15,
+        },
+        text: {
+            fontFamily: "ProductSans"
+        },
     });
 
     function Day(props) {
@@ -265,9 +192,9 @@ function CardFiveDays(props) {
             borderRightColor: colorScheme === "dark" ? "rgba(255,255,255,0.1)" : "#eee",
             borderRightStyle: "solid",
         }}>
-            <Text>{moment(props.daily.dt, "X").format("DD/MM")}</Text>
+            <Text style={styles.text}>{moment(props.daily.dt, "X").format("DD/MM")}</Text>
             {WeatherAPI.getIconWeather(props.daily.weather[0].id, props.daily.weather[0].icon, colorScheme === "dark" ? "white" : "black", 40)}
-            <Text>{props.daily.temp.max.toFixed(1)} °C</Text>
+            <Text style={styles.text}>{props.daily.temp.max.toFixed(1)} °C</Text>
             <View
                 style={{
                     marginVertical: 1,
@@ -278,7 +205,7 @@ function CardFiveDays(props) {
                 lightColor="#eee"
                 darkColor="rgba(255,255,255,0.1)"
             />
-            <Text>{props.daily.temp.min.toFixed(1)} °C</Text>
+            <Text style={styles.text}>{props.daily.temp.min.toFixed(1)} °C</Text>
         </MView>
     }
 
@@ -295,9 +222,9 @@ function CardFiveDays(props) {
             borderRightColor: colorScheme === "dark" ? "rgba(255,255,255,0.1)" : "#eee",
             borderRightStyle: "solid",
         }}>
-            <Text>{props.text}</Text>
+            <Text style={styles.text}>{props.text}</Text>
             {WeatherAPI.getIconWeather(props.w.weather[0].id, props.w.weather[0].icon, colorScheme === "dark" ? "white" : "black", 40)}
-            <Text>{props.temp.toFixed(1)} °C</Text>
+            <Text style={styles.text}>{props.temp.toFixed(1)} °C</Text>
         </MView>
     }
 
@@ -358,18 +285,24 @@ function WeatherPage(props) {
         },
         title: {
             fontSize: 20,
-            fontWeight: "bold",
+            // fontWeight: "bold",
             textAlign: "center",
             color: "#fff",
+            fontFamily: "ProductSans",
         },
         text: {
             textAlign: "center",
             color: "#fff",
+            fontFamily: "ProductSans",
+        },
+        googleSans: {
+            fontFamily: "ProductSans"
         },
         tempText: {
             fontSize: 50,
             textAlign: "center",
             color: "#fff",
+            fontFamily: "ProductSans"
         },
         tempMiniText: {},
         separator: {
@@ -424,7 +357,7 @@ function WeatherPage(props) {
                     ? <MView>
                         {
                             props.weatherPeriod.alerts
-                                ? <Button buttonStyle={styles.card} titleStyle={{color: colorScheme === "dark" ? "white" : "black"}} title="Служебная информация" icon={<Icon prov="mci" size={20} name="alert"/>} onPress={() => props.navigation.navigate("AlertsScreen", {alerts: props.weatherPeriod.alerts})}/>
+                                ? <Button buttonStyle={styles.card} titleStyle={{color: colorScheme === "dark" ? "white" : "black", fontFamily: "ProductSans"}} title="Служебная информация" icon={<Icon prov="mci" size={20} name="alert"/>} onPress={() => props.navigation.navigate("AlertsScreen", {alerts: props.weatherPeriod.alerts})}/>
                                 : null
                         }
                     </MView>

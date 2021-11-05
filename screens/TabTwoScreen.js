@@ -12,6 +12,7 @@ export default function TabTwoScreen({route}) {
     const styles = StyleSheet.create({
         text: {
             color: colorScheme === "dark" ? "#fff" : "#000",
+            fontFamily: "ProductSans",
         },
         listItem: {
             backgroundColor: "transparent",
@@ -20,11 +21,13 @@ export default function TabTwoScreen({route}) {
         },
         textSmall: {
             color: colorScheme === "dark" ? "gray" : "gray",
+            fontFamily: "ProductSans",
         },
         container: {},
         title: {
             fontSize: 40,
             textAlign: "center",
+            fontFamily: "ProductSans",
         },
         separator: {
             marginVertical: 30,
@@ -139,15 +142,19 @@ export default function TabTwoScreen({route}) {
                             Версия приложения
                         </ListItem.Title>
                         <ListItem.Subtitle style={styles.textSmall}>
-                            1.0.0 beta
+                            1.1.0 beta
                         </ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
             </MView>
             <MView style={{marginTop: 30}}/>
             <MView>
-                <Button type="clear" icon={<Icon prov="mci" name="github" size={30}/>}
-                        onPress={() => openURL("https://github.com/drvue")}/>
+                <Text style={{fontFamily: "ProductSans", textAlign: "left", paddingLeft: 10, fontSize: 40}}>Dr.Vue</Text>
+                <MView style={{flex: 1, flexDirection: "row", justifyContent: "flex-start"}}>
+                    <Button type="clear" icon={<Icon prov="mci" name="github" size={30}/>}
+                            onPress={() => openURL("https://github.com/drvue")}/>
+                </MView>
+                <Text style={{fontFamily: "ProductSans", textAlign: "left", paddingLeft: 10}}>Copyright © 2021 Dr.Vue. All rights reserved</Text>
             </MView>
         </View>
     );

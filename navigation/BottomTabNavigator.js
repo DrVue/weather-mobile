@@ -13,6 +13,7 @@ import CityScreen from "../screens/CityScreen";
 import AlertsScreen from "../screens/AlertsScreen";
 import {Button} from "react-native-elements";
 import {Icon, MView} from "../components/Themed";
+import ErrorScreen from "../screens/ErrorScreen";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -102,6 +103,18 @@ export default function TabOneNavigator() {
             <TabOneStack.Screen
                 name="SearchScreen"
                 component={SearchScreen}
+                options={{
+                    headerTransparent: true,
+                    title: "",
+                    transitionSpec: {
+                        open: animConf,
+                        close: animConf,
+                    },
+                }}
+            />
+            <TabOneStack.Screen
+                name="ErrorScreen"
+                component={ErrorScreen}
                 options={{
                     headerTransparent: true,
                     title: "",

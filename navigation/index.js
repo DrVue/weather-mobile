@@ -13,11 +13,22 @@ import LinkingConfiguration from "./LinkingConfiguration";
 
 import {ThemeProvider} from "react-native-elements";
 
+import {useFonts} from "expo-font";
+
 export default function Navigation({colorScheme}) {
+    const [loaded] = useFonts({
+        ProductSans: require("../assets/productsans.ttf"),
+    });
+
+    if (!loaded) {
+        return null;
+    };
+
     return (
         <NavigationContainer
             linking={LinkingConfiguration}
             theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+            style={{}}
         >
             <ThemeProvider useDark={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
                 <RootNavigator/>

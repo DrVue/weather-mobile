@@ -9,7 +9,7 @@ export default function AlertsScreen({route, navigation}) {
     const styles = StyleSheet.create({
         card: {
             // flex: 1,
-            alignItems: "center",
+            alignItems: "flex-start",
             padding: 10,
             marginTop: 5,
             marginBottom: 5,
@@ -30,11 +30,12 @@ export default function AlertsScreen({route, navigation}) {
             backgroundColor: "transparent",
         },
         title: {
-
+            fontFamily: "ProductSans",
             fontSize: 40,
         },
         text: {
             textAlignVertical: "top",
+            fontFamily: "ProductSans",
         },
         secondView: {
             backgroundColor: colorScheme === "dark" ? "black" : "white",
@@ -54,10 +55,16 @@ export default function AlertsScreen({route, navigation}) {
             flex: 1,
             alignItems: "center",
         },
+        titleMini: {
+            fontFamily: "ProductSans",
+            textAlign: "right",
+            fontSize: 20,
+        }
     });
 
     return <View>
         <MView style={styles.firstView}>
+            <Icon prov="mci" size={100} name="alert"/>
             <Text style={styles.title}>Информация</Text>
         </MView>
         <MView style={styles.secondView}>
@@ -67,8 +74,8 @@ export default function AlertsScreen({route, navigation}) {
                         {
                             route.params.alerts[0] && route.params.alerts[0].description !== ""
                                 ? <MView style={styles.card}>
-                                    <Icon prov="mci" size={80} name="alert"/>
-                                    <Text style={styles.title}>{route.params.alerts[0].event}</Text>
+                                    {/*<Icon prov="mci" size={80} name="alert"/>*/}
+                                    <Text style={styles.titleMini}>{route.params.alerts[0].event}</Text>
                                     <Text style={styles.text}>{route.params.alerts[0].description}</Text>
                                 </MView>
                                 : null
@@ -76,8 +83,8 @@ export default function AlertsScreen({route, navigation}) {
                         {
                             route.params.alerts[1] && route.params.alerts[1].description !== ""
                                 ? <MView style={styles.card}>
-                                    <Icon prov="mci" size={80} name="alert"/>
-                                    <Text style={styles.title}>{route.params.alerts[1].event}</Text>
+                                    {/*<Icon prov="mci" size={80} name="alert"/>*/}
+                                    <Text style={styles.titleMini}>{route.params.alerts[1].event}</Text>
                                     <Text style={styles.text}>{route.params.alerts[1].description}</Text>
                                 </MView>
                                 : null
@@ -85,8 +92,8 @@ export default function AlertsScreen({route, navigation}) {
                         {
                             route.params.alerts[2] && route.params.alerts[2].description !== ""
                                 ? <MView style={styles.card}>
-                                    <Icon prov="mci" size={80} name="alert"/>
-                                    <Text style={styles.title}>{route.params.alerts[2].event}</Text>
+                                    {/*<Icon prov="mci" size={80} name="alert"/>*/}
+                                    <Text style={styles.titleMini}>{route.params.alerts[2].event}</Text>
                                     <Text style={styles.text}>{route.params.alerts[2].description}</Text>
                                 </MView>
                                 : null

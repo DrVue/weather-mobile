@@ -15,6 +15,7 @@ export default function SearchScreen ({navigation}) {
     const [isLoading, setIsLoading] = useState(false);
     const [res, setRes] = useState([]);
     const [city, setCity] = useState("");
+    const [err, setErr] = useState(false);
 
     function getWeather() {
         setIsLoading(true);
@@ -23,6 +24,10 @@ export default function SearchScreen ({navigation}) {
             city: city,
         }).then((d) => {
             setRes(d.data.list);
+            setIsLoading(false);
+        }).catch(err => {
+            navigation.push("ErrorScreen");
+            setErr(true);
             setIsLoading(false);
         })
     }
@@ -37,7 +42,7 @@ export default function SearchScreen ({navigation}) {
         },
         title: {
             fontSize: 20,
-            fontWeight: "bold",
+            fontFamily: "ProductSans"
         },
         separator: {
             marginVertical: 30,
@@ -51,10 +56,12 @@ export default function SearchScreen ({navigation}) {
         },
         text: {
             color: colorScheme === "dark" ? "#fff" : "#000",
+            fontFamily: "ProductSans",
         },
         searchBar: {
             backgroundColor: colorScheme === "dark" ? "#555" : "#bbb",
             color: colorScheme === "dark" ? "#fff" : "#000",
+            fontFamily: "ProductSans",
         },
         containerSearchBar: {
             backgroundColor: colorScheme === "dark" ? "#555" : "#bbb",
@@ -77,6 +84,7 @@ export default function SearchScreen ({navigation}) {
         },
         textSmall: {
             color: colorScheme === "dark" ? "gray" : "gray",
+            fontFamily: "ProductSans",
         },
         secondView: {
             backgroundColor: colorScheme === "dark" ? "black" : "white",
@@ -110,6 +118,7 @@ export default function SearchScreen ({navigation}) {
                 lightTheme={true}
                 platform="android"
                 inputStyle={styles.searchBar}
+                placeholderStyle={{fontFamily: "ProductSans"}}
                 inputContainerStyle={styles.containerSearchBar}
                 containerStyle={styles.backgroundSearchBar}
                 rightIconContainerStyle={styles.icon}
@@ -119,7 +128,7 @@ export default function SearchScreen ({navigation}) {
         </MView>
         <MView style={styles.secondView}>
             {
-                !isLoading
+                !isLoading && !err
                     ? res !== []
                         ? <View style={styles.card}>
                         {

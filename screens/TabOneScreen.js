@@ -21,7 +21,7 @@ export default function TabOneScreen({navigation, route}) {
     const [isLoading, setIsLoading] = useState(true);
     const [weather, setWeather] = useState({});
     const [location, setLocation] = useState(null);
-    const [errMsg, setErrMsg] = useState(null);
+    const [err, setErr] = useState(false);
     const [weatherPeriod, setWeatherPeriod] = useState({});
     const [isLoadingPeriod, setIsLoadingPeriod] = useState(true);
 
@@ -33,6 +33,11 @@ export default function TabOneScreen({navigation, route}) {
             setWeather(d.data.weather);
             getWeatherPeriod(locate);
             setIsLoading(false);
+        }).catch(err => {
+            navigation.push("ErrorScreen");
+            setErr(true);
+            setIsLoading(false);
+            setIsLoadingPeriod(false);
         })
     }
 
@@ -70,7 +75,7 @@ export default function TabOneScreen({navigation, route}) {
         <View style={styles.container}>
 
             {
-                !isLoading
+                !isLoading && !err
                     ? <WeatherPage styles={styles} weather={weather} weatherPeriod={weatherPeriod}
                                    isLoadingPeriod={isLoadingPeriod} loc navigation={navigation}/>
                     : <MView style={styles.containerLoading}>
