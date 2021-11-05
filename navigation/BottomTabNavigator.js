@@ -37,6 +37,17 @@ const TabOneStack = createStackNavigator();
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 
 export default function TabOneNavigator() {
+    const animConf = {
+        animation: "spring",
+        config: {
+            stiffness: 2000,
+            damping: 2000,
+            mass: 10,
+            overshootClamping: true,
+            restDisplacementThreshold: 0.01,
+            restSpeedThreshold: 0.01,
+        }
+    }
     return (
         <TabOneStack.Navigator screenOptions={{headerShown: true}}>
             <TabOneStack.Screen
@@ -53,7 +64,11 @@ export default function TabOneNavigator() {
                             <Button type="clear" icon={<Icon prov="mi" name="search" size={30} onPress={() => navigation.navigate("SearchScreen")}/>}/>
                             <Button type="clear" icon={<Icon prov="mi" name="info" size={30} onPress={() => navigation.navigate("TabTwoScreen")}/>}/>
                         </MView>
-                    )
+                    ),
+                    transitionSpec: {
+                        open: animConf,
+                        close: animConf,
+                    },
                 })}
             />
             <TabOneStack.Screen
@@ -63,6 +78,10 @@ export default function TabOneNavigator() {
                     title: "",
                     headerTransparent: true,
                     headerTitleAlign: "center",
+                    transitionSpec: {
+                        open: animConf,
+                        close: animConf,
+                    },
                 }}
             />
             <TabOneStack.Screen
@@ -74,6 +93,10 @@ export default function TabOneNavigator() {
                     headerTransparent: true,
                     headerTitleAlign: "center",
                     title: "",
+                    transitionSpec: {
+                        open: animConf,
+                        close: animConf,
+                    },
                 })}
             />
             <TabOneStack.Screen
@@ -82,6 +105,10 @@ export default function TabOneNavigator() {
                 options={{
                     headerTransparent: true,
                     title: "",
+                    transitionSpec: {
+                        open: animConf,
+                        close: animConf,
+                    },
                 }}
             />
             <TabOneStack.Screen
@@ -96,7 +123,11 @@ export default function TabOneNavigator() {
                         <MView style={{flex: 1, flexDirection: "row", backgroundColor: "transparent"}}>
                             <Button type="clear" icon={<Icon prov="mi" name="info" size={30} onPress={() => navigation.navigate("TabTwoScreen")}/>}/>
                         </MView>
-                    )
+                    ),
+                    transitionSpec: {
+                        open: animConf,
+                        close: animConf,
+                    },
                 })}
             />
         </TabOneStack.Navigator>
