@@ -3,7 +3,7 @@
     "name": "Погода",
     "slug": "weather-mobile",
     "sdkVersion": "43.0.0",
-    "version": "v1.1.0 beta",
+    "version": "v1.2.0 beta",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -25,7 +25,7 @@
     },
     "android": {
       "package": "ru.drvue.weather",
-      "versionCode": 8,
+      "versionCode": 9,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
