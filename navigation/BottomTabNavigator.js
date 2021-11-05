@@ -49,13 +49,14 @@ export default function TabOneNavigator() {
                     headerTransparent: true,
                     headerRight: () => (
                         <MView style={{flex: 1, flexDirection: "row", backgroundColor: "transparent"}}>
+                            <Button type="clear" icon={<Icon prov="mci" name="reload" size={30} onPress={() => navigation.replace("TabOneScreen")}/>}/>
                             <Button type="clear" icon={<Icon prov="mi" name="search" size={30} onPress={() => navigation.navigate("SearchScreen")}/>}/>
                             <Button type="clear" icon={<Icon prov="mi" name="info" size={30} onPress={() => navigation.navigate("TabTwoScreen")}/>}/>
                         </MView>
                     )
                 })}
             />
-            <TabTwoStack.Screen
+            <TabOneStack.Screen
                 name="TabTwoScreen"
                 component={TabTwoScreen}
                 options={{
@@ -93,46 +94,11 @@ export default function TabOneNavigator() {
                     headerTransparent: true,
                     headerRight: () => (
                         <MView style={{flex: 1, flexDirection: "row", backgroundColor: "transparent"}}>
-                            <Button type="clear" icon={<Icon prov="mi" name="search" size={30} onPress={() => navigation.navigate("SearchScreen")}/>}/>
                             <Button type="clear" icon={<Icon prov="mi" name="info" size={30} onPress={() => navigation.navigate("TabTwoScreen")}/>}/>
                         </MView>
                     )
                 })}
             />
         </TabOneStack.Navigator>
-    );
-}
-
-const TabTwoStack = createStackNavigator();
-
-function TabTwoNavigator() {
-    return (
-        <TabTwoStack.Navigator screenOptions={{headerShown: false}}>
-
-        </TabTwoStack.Navigator>
-    );
-}
-
-const SearchStack = createStackNavigator();
-
-function SearchNavigator() {
-    return (
-        <SearchStack.Navigator screenOptions={{headerShown: false}}>
-
-        </SearchStack.Navigator>
-    );
-}
-
-const CityStack = createStackNavigator();
-
-function CityNavigator() {
-    return (
-        <CityStack.Navigator screenOptions={{headerShown: false}}>
-            <CityStack.Screen
-                name="CityScreen"
-                component={CityScreen}
-                initialParams={{city: "Moscow,RU"}}
-            />
-        </CityStack.Navigator>
     );
 }
