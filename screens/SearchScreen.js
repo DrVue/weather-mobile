@@ -44,27 +44,64 @@ export default function SearchScreen ({navigation}) {
             height: 1,
             width: "80%",
         },
+        card: {
+            backgroundColor: colorScheme === "dark" ? "#333" : "#ddd",
+            borderRadius: 20,
+            padding: 5,
+        },
         text: {
             color: colorScheme === "dark" ? "#fff" : "#000",
         },
         searchBar: {
-            backgroundColor: colorScheme === "dark" ? "#000" : "#fff",
+            backgroundColor: colorScheme === "dark" ? "#555" : "#bbb",
+            color: colorScheme === "dark" ? "#fff" : "#000",
+        },
+        containerSearchBar: {
+            backgroundColor: colorScheme === "dark" ? "#555" : "#bbb",
+            color: colorScheme === "dark" ? "#fff" : "#000",
+            borderRadius: 20,
+            padding: 5,
+        },
+        backgroundSearchBar: {
+            backgroundColor: "transparent",
+            color: colorScheme === "dark" ? "#fff" : "#000",
+            marginTop: 10,
+        },
+        icon: {
             color: colorScheme === "dark" ? "#fff" : "#000",
         },
         listItem: {
-            backgroundColor: colorScheme === "dark" ? "#000" : "#fff",
+            backgroundColor: "transparent",
             // borderColor: colorScheme === "dark" ? "#000" : "#fff",
             color: colorScheme === "dark" ? "#fff" : "#000",
         },
         textSmall: {
             color: colorScheme === "dark" ? "gray" : "gray",
-        }
+        },
+        secondView: {
+            backgroundColor: colorScheme === "dark" ? "black" : "white",
+            paddingTop: 30,
+            bottom: 20,
+        },
+        firstView: {
+            backgroundColor: colorScheme === "dark" ? "#333" : "#ddd",
+            paddingTop: 100,
+            paddingBottom: 10,
+            paddingLeft: 10,
+            paddingRight: 10,
+            borderBottomLeftRadius: 20,
+            borderBottomRightRadius: 20,
+            zIndex: 2,
+            // height: 450,
+            flex: 1,
+            alignItems: "center",
+        },
     });
 
 
 
     return <View>
-        <MView style={{marginTop: 70}}/>
+        <MView style={styles.firstView}>
             <SearchBar
                 placeholder="Поиск по городу..."
                 onChangeText={text => setCity(text)}
@@ -73,35 +110,39 @@ export default function SearchScreen ({navigation}) {
                 lightTheme={true}
                 platform="android"
                 inputStyle={styles.searchBar}
-                inputContainerStyle={styles.searchBar}
-                containerStyle={styles.searchBar}
+                inputContainerStyle={styles.containerSearchBar}
+                containerStyle={styles.backgroundSearchBar}
+                rightIconContainerStyle={styles.icon}
                 loadingProps={<ActivityIndicator size="small" color="#0000ff"/>}
                 showLoading="true"
             />
-
-
-        {
-            !isLoading
-                ? <View>
-                    {
-                        res.map((e, i) => {
-                            return <ListItem style={styles.listItem} containerStyle={styles.listItem} key={i} bottomDivider topDivider={i === 0} onPress={() => navigation.navigate("CityScreen", {lat: e.coord.lat, lon: e.coord.lon})}>
-                                <Icon prov="mi" name="location-city" size={30}/>
-                                <ListItem.Content style={styles.listItem}>
-                                    <ListItem.Title style={styles.text}>
-                                        {e.name}, {e.sys.country}
-                                    </ListItem.Title>
-                                    <ListItem.Subtitle style={styles.textSmall}>
-                                        {e.main.temp.toFixed(1)} °C | {e.weather[0].description}
-                                    </ListItem.Subtitle>
-                                </ListItem.Content>
-                                <ListItem.Chevron/>
-                            </ListItem>
-                        })
-                    }
-                </View>
-                : <ActivityIndicator size={50} color="#0000ff"/>
-        }
+        </MView>
+        <MView style={styles.secondView}>
+            {
+                !isLoading
+                    ? res !== []
+                        ? <View style={styles.card}>
+                        {
+                            res.map((e, i) => {
+                                    return <ListItem style={styles.listItem} containerStyle={styles.listItem} key={i} bottomDivider={i + 1 !== res.length} onPress={() => navigation.navigate("CityScreen", {lat: e.coord.lat, lon: e.coord.lon})}>
+                                        <Icon prov="mi" name="location-city" size={30}/>
+                                        <ListItem.Content style={styles.listItem}>
+                                            <ListItem.Title style={styles.text}>
+                                                {e.name}, {e.sys.country}
+                                            </ListItem.Title>
+                                            <ListItem.Subtitle style={styles.textSmall}>
+                                                {e.main.temp.toFixed(1)} °C | {e.weather[0].description}
+                                            </ListItem.Subtitle>
+                                        </ListItem.Content>
+                                        <ListItem.Chevron/>
+                                    </ListItem>
+                                })
+                        }
+                    </View>
+                    : null
+                    : <ActivityIndicator size={50} color="#0000ff"/>
+            }
+        </MView>
     </View>
 }
 

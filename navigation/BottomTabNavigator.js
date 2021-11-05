@@ -60,7 +60,7 @@ export default function TabOneNavigator() {
                 name="TabTwoScreen"
                 component={TabTwoScreen}
                 options={{
-                    title: "О приложении",
+                    title: "",
                     headerTransparent: true,
                     headerTitleAlign: "center",
                 }}
@@ -73,7 +73,7 @@ export default function TabOneNavigator() {
                     alerts: route.params.alerts,
                     headerTransparent: true,
                     headerTitleAlign: "center",
-                    title: "Информация",
+                    title: "",
                 })}
             />
             <TabOneStack.Screen

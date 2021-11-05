@@ -6,6 +6,7 @@ import {ActivityIndicator, StyleSheet, useColorScheme} from "react-native";
 import {LinearProgress, Button} from "react-native-elements";
 import axios from "react-native-axios";
 import {isLoading} from "expo-font";
+import {MaterialIcons} from "@expo/vector-icons";
 
 function WindLinear(props) {
     function getScore(wind = props.wind) {
@@ -379,18 +380,18 @@ function WeatherPage(props) {
         },
         secondView: {
             backgroundColor: colorScheme === "dark" ? "black" : "white",
-            paddingTop: 10,
-            paddingLeft: 10,
-            paddingRight: 10,
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
+            paddingTop: 30,
             bottom: 20,
         },
         firstView: {
             backgroundColor: WeatherAPI.getColor(props.weather.weather[0].id, props.weather.weather[0].icon),
-            paddingTop: 10,
+            paddingTop: 50,
             paddingLeft: 10,
             paddingRight: 10,
+            borderBottomLeftRadius: 20,
+            borderBottomRightRadius: 20,
+            zIndex: 2,
+            height: 450,
         },
     });
 
@@ -407,7 +408,7 @@ function WeatherPage(props) {
             <Text style={styles.title}>
                 {
                     props.loc
-                        ? <Icon prov="mi" name="location-on" size={15}/>
+                        ? <MaterialIcons name="location-on" size={15} color="white"/>
                         : null
                 }
             {props.weather.name} ({props.weather.sys.country})</Text>
@@ -423,7 +424,7 @@ function WeatherPage(props) {
                     ? <MView>
                         {
                             props.weatherPeriod.alerts
-                                ? <Button buttonStyle={styles.card} title="Служебная информация" icon={<Icon prov="mci" size={20} name="alert"/>} onPress={() => props.navigation.navigate("AlertsScreen", {alerts: props.weatherPeriod.alerts})}/>
+                                ? <Button buttonStyle={styles.card} titleStyle={{color: colorScheme === "dark" ? "white" : "black"}} title="Служебная информация" icon={<Icon prov="mci" size={20} name="alert"/>} onPress={() => props.navigation.navigate("AlertsScreen", {alerts: props.weatherPeriod.alerts})}/>
                                 : null
                         }
                     </MView>

@@ -1,5 +1,5 @@
 import {ActivityIndicator, StyleSheet, useColorScheme} from "react-native";
-import {Icon, MView, Text} from "../components/Themed";
+import {Icon, MView, Text, View} from "../components/Themed";
 import {Button} from "react-native-elements";
 import React from "react";
 
@@ -30,17 +30,37 @@ export default function AlertsScreen({route, navigation}) {
             backgroundColor: "transparent",
         },
         title: {
-            fontWeight: "bold",
-            fontSize: 20,
+
+            fontSize: 40,
         },
         text: {
             textAlignVertical: "top",
-        }
+        },
+        secondView: {
+            backgroundColor: colorScheme === "dark" ? "black" : "white",
+            paddingTop: 30,
+            bottom: 20,
+        },
+        firstView: {
+            backgroundColor: colorScheme === "dark" ? "#333" : "#ddd",
+            paddingTop: 100,
+            paddingBottom: 10,
+            paddingLeft: 10,
+            paddingRight: 10,
+            borderBottomLeftRadius: 20,
+            borderBottomRightRadius: 20,
+            zIndex: 2,
+            // height: 450,
+            flex: 1,
+            alignItems: "center",
+        },
     });
 
-    return <MView>
-        <MView style={{marginTop: 90}}/>
-        <MView>
+    return <View>
+        <MView style={styles.firstView}>
+            <Text style={styles.title}>Информация</Text>
+        </MView>
+        <MView style={styles.secondView}>
             {
                 route.params.alerts !== []
                     ? <MView>
@@ -75,5 +95,5 @@ export default function AlertsScreen({route, navigation}) {
                     : null
             }
         </MView>
-    </MView>;
+    </View>;
 }
