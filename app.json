@@ -2,8 +2,8 @@
   "expo": {
     "name": "Погода",
     "slug": "weather-mobile",
-    "sdkVersion": "43.0.0",
-    "version": "v1.2.0 beta",
+    "sdkVersion": "44.0.0",
+    "version": "v1.2.1 alpha",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -29,7 +29,7 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
+      }
 
     },
     "web": {

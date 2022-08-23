@@ -26,7 +26,7 @@ export default function TabOneScreen({navigation, route}) {
     const [isLoadingPeriod, setIsLoadingPeriod] = useState(true);
 
     function getWeatherLocate(locate) {
-        axios.post("http://194.67.78.244:3010/locate/one", {
+        axios.post("http://93.95.97.150/locate/one", {
             lan: locate.coords.latitude,
             lon: locate.coords.longitude,
         }).then((d) => {
@@ -42,15 +42,11 @@ export default function TabOneScreen({navigation, route}) {
     }
 
     function getWeatherPeriod(locate) {
-        axios.post("http://194.67.78.244:3010/locate/period", {
+        axios.post("http://93.95.97.150/locate/period", {
             lan: locate.coords.latitude,
             lon: locate.coords.longitude,
         }).then((d) => {
-            setWeatherPeriod({
-                daily: d.data.weather.daily,
-                alerts: d.data.weather.alerts
-            });
-            // console.log(d.data.weather.daily);
+            setWeatherPeriod(d.data.weather.list);
             setIsLoadingPeriod(false);
         })
     }
@@ -89,7 +85,6 @@ export default function TabOneScreen({navigation, route}) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-
         // alignItems: "center",
         // textAlign: "center",
         // justifyContent: "start",

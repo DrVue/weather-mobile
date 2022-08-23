@@ -23,7 +23,7 @@ export default function CityScreen({navigation, route}) {
     const [city, setCity] = useState(route.params.city);
 
     function getWeather(c = city) {
-        axios.post("http://194.67.78.244:3010/locate/one", {
+        axios.post("http://93.95.97.150/locate/one", {
             lan: route.params.lat,
             lon: route.params.lon,
         }).then((d) => {
@@ -39,14 +39,14 @@ export default function CityScreen({navigation, route}) {
     }
 
     function getWeatherPeriod() {
-        axios.post("http://194.67.78.244:3010/locate/period", {
+        axios.post("http://93.95.97.150/locate/period", {
             lan: route.params.lat,
             lon: route.params.lon,
         }).then((d) => {
-            setWeatherPeriod({
-                daily: d.data.weather.daily,
-                alerts: d.data.weather.alerts
-            });
+            console.log(d.data.weather.list[1]);
+            setWeatherPeriod(d.data.weather.list);
+            // console.log(d.data.weather.daily);
+            // setIsLoadingPeriod(false);
             setIsLoadingPeriod(false);
         })
     }

@@ -40,7 +40,7 @@ export default function TabTwoScreen({route}) {
             bottom: 20,
         },
         firstView: {
-            backgroundColor: colorScheme === "dark" ? "#333" : "#ddd",
+            // backgroundColor: colorScheme === "dark" ? "#333" : "#ddd",
             paddingTop: 100,
             paddingBottom: 10,
             paddingLeft: 10,
@@ -50,12 +50,16 @@ export default function TabTwoScreen({route}) {
             zIndex: 2,
             // height: 450,
             flex: 1,
-            alignItems: "center",
+            alignItems: "flex-start",
         },
         card: {
             backgroundColor: colorScheme === "dark" ? "#333" : "#ddd",
-            borderRadius: 20,
-            padding: 5,
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingTop: 10,
+            paddingBottom: 10,
+            borderRadius: 28,
+            margin: 10,
         },
     });
 
@@ -130,7 +134,7 @@ export default function TabTwoScreen({route}) {
                             Версия Expo SDK
                         </ListItem.Title>
                         <ListItem.Subtitle style={styles.textSmall}>
-                            43.0.0
+                            46.0.0
                         </ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
@@ -142,7 +146,7 @@ export default function TabTwoScreen({route}) {
                             Версия приложения
                         </ListItem.Title>
                         <ListItem.Subtitle style={styles.textSmall}>
-                            1.1.0 beta
+                            1.2.1 alpha
                         </ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>

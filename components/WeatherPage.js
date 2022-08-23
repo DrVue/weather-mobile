@@ -116,12 +116,15 @@ function Card(props) {
 
     const styles = StyleSheet.create({
         card: {
-            padding: 10,
-            marginTop: 5,
-            marginBottom: 5,
-            width: "100%",
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingTop: 10,
+            paddingBottom: 10,
+            borderRadius: 28,
+            margin: 10,
+            // width: "100%",
             backgroundColor: colorScheme === "dark" ? "#333" : "#ddd",
-            borderRadius: 20,
+            // borderRadius: 20,
         },
         cardTextBig: {
             fontSize: 40,
@@ -149,12 +152,14 @@ function CardFiveDays(props) {
 
     const styles = StyleSheet.create({
         card: {
-            padding: 10,
-            marginTop: 5,
-            marginBottom: 5,
-            width: "100%",
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingTop: 10,
+            paddingBottom: 10,
+            borderRadius: 28,
+            margin: 10,
             backgroundColor: colorScheme === "dark" ? "#333" : "#ddd",
-            borderRadius: 20,
+            // borderRadius: 20,
         },
         cardTextBig: {
             fontSize: 40,
@@ -178,6 +183,7 @@ function CardFiveDays(props) {
     });
 
     function Day(props) {
+        // console.log()
         const colorScheme = useColorScheme();
 
         // console.log(props.daily);
@@ -194,18 +200,9 @@ function CardFiveDays(props) {
         }}>
             <Text style={styles.text}>{moment(props.daily.dt, "X").format("DD/MM")}</Text>
             {WeatherAPI.getIconWeather(props.daily.weather[0].id, props.daily.weather[0].icon, colorScheme === "dark" ? "white" : "black", 40)}
-            <Text style={styles.text}>{props.daily.temp.max.toFixed(1)} °C</Text>
-            <View
-                style={{
-                    marginVertical: 1,
-                    // margin: 40,
-                    height: 1,
-                    width: "50%",
-                }}
-                lightColor="#eee"
-                darkColor="rgba(255,255,255,0.1)"
-            />
-            <Text style={styles.text}>{props.daily.temp.min.toFixed(1)} °C</Text>
+            <Text style={styles.text}>{props.daily.main.temp_max.toFixed(0)} °C</Text>
+
+            {/*<Text style={styles.text}>{props.daily.main.temp_min.toFixed(1)} °C</Text>*/}
         </MView>
     }
 
@@ -238,11 +235,11 @@ function CardFiveDays(props) {
                         flexDirection: "row",
                         backgroundColor: "transparent",
                     }}>
-                        <Day daily={props.daily.daily[1]}/>
-                        <Day daily={props.daily.daily[2]}/>
-                        <Day daily={props.daily.daily[3]}/>
-                        <Day daily={props.daily.daily[4]}/>
-                        <Day daily={props.daily.daily[5]} end/>
+                        <Day daily={props.daily[3]}/>
+                        <Day daily={props.daily[11]}/>
+                        <Day daily={props.daily[19]}/>
+                        <Day daily={props.daily[27]}/>
+                        <Day daily={props.daily[35]} end/>
                     </MView>
                     : <MView style={styles.containerLoading}>
                         <ActivityIndicator size="large" color="#0000ff"/>
@@ -258,10 +255,10 @@ function CardFiveDays(props) {
                         flexDirection: "row",
                         backgroundColor: "transparent",
                     }}>
-                        <InDay temp={props.daily.daily[0].temp.night} w={props.daily.daily[0]} text="Ночь"/>
-                        <InDay temp={props.daily.daily[0].temp.morn} w={props.daily.daily[0]} text="Утро"/>
-                        <InDay temp={props.daily.daily[0].temp.day} w={props.daily.daily[0]} text="День"/>
-                        <InDay temp={props.daily.daily[0].temp.eve} w={props.daily.daily[0]} text="Вечер" end/>
+                        <InDay temp={props.daily[0].main.temp} w={props.daily[0]} text="Ночь"/>
+                        <InDay temp={props.daily[2].main.temp} w={props.daily[2]} text="Утро"/>
+                        <InDay temp={props.daily[5].main.temp} w={props.daily[5]} text="День"/>
+                        <InDay temp={props.daily[6].main.temp} w={props.daily[6]} text="Вечер" end/>
                     </MView>
                     : <MView style={styles.containerLoading}>
                         <ActivityIndicator size="large" color="#0000ff"/>
@@ -276,15 +273,18 @@ function WeatherPage(props) {
 
     const styles = StyleSheet.create({
         card: {
-            padding: 10,
-            marginTop: 5,
-            marginBottom: 5,
-            width: "100%",
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingTop: 10,
+            paddingBottom: 10,
+            borderRadius: 28,
+            margin: 10,
+            // width: "100%",
             backgroundColor: colorScheme === "dark" ? "#333" : "#ddd",
-            borderRadius: 20,
+            // borderRadius: 20,
         },
         title: {
-            fontSize: 20,
+            fontSize: 30,
             // fontWeight: "bold",
             textAlign: "center",
             color: "#fff",
@@ -304,6 +304,12 @@ function WeatherPage(props) {
             color: "#fff",
             fontFamily: "ProductSans"
         },
+        textDesc: {
+            fontSize: 20,
+            textAlign: "center",
+            color: "#fff",
+            fontFamily: "ProductSans"
+        },
         tempMiniText: {},
         separator: {
             marginVertical: 20,
@@ -318,26 +324,28 @@ function WeatherPage(props) {
         },
         firstView: {
             backgroundColor: WeatherAPI.getColor(props.weather.weather[0].id, props.weather.weather[0].icon),
-            paddingTop: 50,
+            // paddingTop: 50,
             paddingLeft: 10,
             paddingRight: 10,
-            borderBottomLeftRadius: 20,
-            borderBottomRightRadius: 20,
+            borderRadius: 28,
+            margin: 10,
             zIndex: 2,
-            height: 450,
+            textAlign: "left",
+            alignItems: "flex-start",
+            // height: 350,
         },
     });
 
     // console.log(props.weatherPeriod.alerts)
 
     return <View>
+        <MView style={{marginTop: 80}}/>
         <MView style={styles.firstView}>
-            <MView style={{marginTop: 100}}/>
             <Text
                 style={styles.tempText}>{WeatherAPI.getIconWeather(props.weather.weather[0].id, props.weather.weather[0].icon, colorScheme === "dark" ? "white" : "white", 100)}</Text>
             <Text
                 style={styles.tempText}>{props.weather.main.temp.toFixed(1)} °C</Text>
-            <MView style={{marginTop: 30}}/>
+            {/*<MView style={{marginTop: 30}}/>*/}
             <Text style={styles.title}>
                 {
                     props.loc
@@ -345,11 +353,11 @@ function WeatherPage(props) {
                         : null
                 }
             {props.weather.name} ({props.weather.sys.country})</Text>
-            <Text style={styles.text}>{props.weather.weather[0].description}</Text>
-            <Text style={styles.text}>{props.weather.main.temp_min.toFixed(1)} °C
+            <Text style={styles.textDesc}>{props.weather.weather[0].description}</Text>
+            <Text style={styles.textDesc}>{props.weather.main.temp_min.toFixed(1)} °C
                 / {props.weather.main.temp_max.toFixed(1)} °C</Text>
-            <Text style={styles.text}>Ощущается как {props.weather.main.feels_like.toFixed(1)} °C</Text>
-            <MView style={{marginTop: 30}}/>
+            <Text style={styles.textDesc}>Ощущается как {props.weather.main.feels_like.toFixed(1)} °C</Text>
+            <MView style={{marginTop: 10}}/>
         </MView>
         <MView style={styles.secondView}>
             {

@@ -20,7 +20,7 @@ export default function SearchScreen ({navigation}) {
     function getWeather() {
         setIsLoading(true);
 
-        axios.post("http://194.67.78.244:3010/find", {
+        axios.post("http://93.95.97.150/find", {
             city: city,
         }).then((d) => {
             setRes(d.data.list);
@@ -51,8 +51,12 @@ export default function SearchScreen ({navigation}) {
         },
         card: {
             backgroundColor: colorScheme === "dark" ? "#333" : "#ddd",
-            borderRadius: 20,
-            padding: 5,
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingTop: 10,
+            paddingBottom: 10,
+            borderRadius: 28,
+            margin: 10,
         },
         text: {
             color: colorScheme === "dark" ? "#fff" : "#000",
@@ -66,7 +70,7 @@ export default function SearchScreen ({navigation}) {
         containerSearchBar: {
             backgroundColor: colorScheme === "dark" ? "#555" : "#bbb",
             color: colorScheme === "dark" ? "#fff" : "#000",
-            borderRadius: 20,
+            borderRadius: 28,
             padding: 5,
         },
         backgroundSearchBar: {
@@ -92,8 +96,8 @@ export default function SearchScreen ({navigation}) {
             bottom: 20,
         },
         firstView: {
-            backgroundColor: colorScheme === "dark" ? "#333" : "#ddd",
-            paddingTop: 100,
+            // backgroundColor: colorScheme === "dark" ? "#333" : "#ddd",
+            paddingTop: 80,
             paddingBottom: 10,
             paddingLeft: 10,
             paddingRight: 10,
