@@ -123,7 +123,7 @@ function Card(props) {
             borderRadius: 28,
             margin: 10,
             // width: "100%",
-            backgroundColor: colorScheme === "dark" ? "#333" : "#ddd",
+            // backgroundColor: colorScheme === "dark" ? "#333" : "#ddd",
             // borderRadius: 20,
         },
         cardTextBig: {
@@ -141,7 +141,7 @@ function Card(props) {
     });
 
     return <View style={styles.card}>
-        <Text style={styles.title}>{props.title}</Text>
+        {/*<Text style={styles.title}>{props.title}</Text>*/}
         <Text style={styles.cardTextBig}>{props.icon} {props.value}</Text>
         {props.children}
     </View>
@@ -268,7 +268,7 @@ function CardFiveDays(props) {
     </MView>
 }
 
-function WeatherPage(props) {
+function WeatherPage({weather, route, navigation, loc, weatherPeriod, isLoadingPeriod}) {
     const colorScheme = useColorScheme();
 
     const styles = StyleSheet.create({
@@ -280,8 +280,15 @@ function WeatherPage(props) {
             borderRadius: 28,
             margin: 10,
             // width: "100%",
-            backgroundColor: colorScheme === "dark" ? "#333" : "#ddd",
+            // backgroundColor: colorScheme === "dark" ? "#333" : "#ddd",
             // borderRadius: 20,
+        },
+        cardButtonWarning: {
+            alignItems: "center",
+            padding: 10,
+            margin: 10,
+            borderRadius: 28,
+            backgroundColor: "orange",
         },
         title: {
             fontSize: 30,
@@ -319,11 +326,11 @@ function WeatherPage(props) {
         },
         secondView: {
             backgroundColor: colorScheme === "dark" ? "black" : "white",
-            paddingTop: 30,
-            bottom: 20,
+            // paddingTop: 10,
+            // bottom: 20,
         },
         firstView: {
-            backgroundColor: WeatherAPI.getColor(props.weather.weather[0].id, props.weather.weather[0].icon),
+            backgroundColor: WeatherAPI.getColor(weather.weather[0].id, weather.weather[0].icon),
             // paddingTop: 50,
             paddingLeft: 10,
             paddingRight: 10,
@@ -342,49 +349,50 @@ function WeatherPage(props) {
         <MView style={{marginTop: 80}}/>
         <MView style={styles.firstView}>
             <Text
-                style={styles.tempText}>{WeatherAPI.getIconWeather(props.weather.weather[0].id, props.weather.weather[0].icon, colorScheme === "dark" ? "white" : "white", 100)}</Text>
+                style={styles.tempText}>{WeatherAPI.getIconWeather(weather.weather[0].id, weather.weather[0].icon, colorScheme === "dark" ? "white" : "white", 100)}</Text>
             <Text
-                style={styles.tempText}>{props.weather.main.temp.toFixed(1)} °C</Text>
+                style={styles.tempText}>{weather.main.temp.toFixed(1)} °C</Text>
             {/*<MView style={{marginTop: 30}}/>*/}
             <Text style={styles.title}>
                 {
-                    props.loc
+                    loc
                         ? <MaterialIcons name="location-on" size={15} color="white"/>
                         : null
                 }
-            {props.weather.name} ({props.weather.sys.country})</Text>
-            <Text style={styles.textDesc}>{props.weather.weather[0].description}</Text>
-            <Text style={styles.textDesc}>{props.weather.main.temp_min.toFixed(1)} °C
-                / {props.weather.main.temp_max.toFixed(1)} °C</Text>
-            <Text style={styles.textDesc}>Ощущается как {props.weather.main.feels_like.toFixed(1)} °C</Text>
+            {weather.name} ({weather.sys.country})</Text>
+            <Text style={styles.textDesc}>{weather.weather[0].description}</Text>
+            <Text style={styles.textDesc}>{weather.main.temp_min.toFixed(1)} °C
+                / {weather.main.temp_max.toFixed(1)} °C</Text>
+            <Text style={styles.textDesc}>Ощущается как {weather.main.feels_like.toFixed(0)} °C</Text>
             <MView style={{marginTop: 10}}/>
         </MView>
+        <Button buttonStyle={styles.cardButtonWarning} titleStyle={{fontFamily: "ProductSans"}} title="К прочтению" onPress={() => {navigation.push("DisclaimerScreen")}}/>
         <MView style={styles.secondView}>
             {
-                !props.isLoadingPeriod
+                !isLoadingPeriod
                     ? <MView>
                         {
-                            props.weatherPeriod.alerts
-                                ? <Button buttonStyle={styles.card} titleStyle={{color: colorScheme === "dark" ? "white" : "black", fontFamily: "ProductSans"}} title="Служебная информация" icon={<Icon prov="mci" size={20} name="alert"/>} onPress={() => props.navigation.navigate("AlertsScreen", {alerts: props.weatherPeriod.alerts})}/>
+                            weatherPeriod.alerts
+                                ? <Button buttonStyle={styles.card} titleStyle={{color: colorScheme === "dark" ? "white" : "black", fontFamily: "ProductSans"}} title="Служебная информация" icon={<Icon prov="mci" size={20} name="alert"/>} onPress={() => navigation.navigate("AlertsScreen", {alerts: weatherPeriod.alerts})}/>
                                 : null
                         }
                     </MView>
                     : null
             }
-            <CardFiveDays daily={props.weatherPeriod} isLoading={props.isLoadingPeriod}/>
+            <CardFiveDays daily={weatherPeriod} isLoading={isLoadingPeriod}/>
             <Card title="Ветер"
-                  value={`${props.weather.wind.speed} м/с ${WeatherAPI.getWind(props.weather.wind.deg)}`}
+                  value={`${weather.wind.speed} м/с ${WeatherAPI.getWind(weather.wind.deg)}`}
                   icon={<Icon prov="mci" size={40} name="weather-windy"/>}
             >
-                <WindLinear wind={props.weather.wind.speed}/>
+                <WindLinear wind={weather.wind.speed}/>
             </Card>
             <Card
                 title="Давление"
-                value={`${(props.weather.main.pressure / 1.333).toFixed(1)} мм.рт.ст.`}
+                value={`${(weather.main.pressure / 1.333).toFixed(1)} мм.рт.ст.`}
                 icon={<Icon prov="mci" size={40} name="speedometer-medium"/>}
             />
             <Card
-                title="Влажность" value={`${props.weather.main.humidity} %`}
+                title="Влажность" value={`${weather.main.humidity} %`}
                 icon={<Icon prov="mci" size={40} name="water-percent"/>}
             >
                 <LinearProgress
@@ -392,11 +400,12 @@ function WeatherPage(props) {
                         borderRadius: 5,
                         height: 10,
                     }}
-                    value={props.weather.main.humidity / 100} color="#00acff" variant="determinate"/>
+                    value={weather.main.humidity / 100} color="#00acff" variant="determinate"/>
             </Card>
             <Card
+                style={styles.card}
                 title="Восход\Закат"
-                value={`${moment(props.weather.sys.sunrise, "X").format("HH:mm")} - ${moment(props.weather.sys.sunset, "X").format("HH:mm")}`}
+                value={`${moment(weather.sys.sunrise, "X").format("HH:mm")} - ${moment(weather.sys.sunset, "X").format("HH:mm")}`}
                 icon={<Icon prov="mci" size={40} name="weather-sunset"/>}
             />
 
