@@ -53,12 +53,12 @@ export default function TabTwoScreen({route}) {
             alignItems: "flex-start",
         },
         card: {
-            backgroundColor: colorScheme === "dark" ? "#333" : "#ddd",
-            paddingLeft: 10,
-            paddingRight: 10,
-            paddingTop: 10,
-            paddingBottom: 10,
-            borderRadius: 28,
+            // backgroundColor: colorScheme === "dark" ? "#333" : "#ddd",
+            // paddingLeft: 10,
+            // paddingRight: 10,
+            // paddingTop: 10,
+            // paddingBottom: 10,
+            // borderRadius: 28,
             margin: 10,
         },
     });
@@ -79,7 +79,7 @@ export default function TabTwoScreen({route}) {
             </MView>
             <MView style={{marginTop: 30}}/>
             <MView style={styles.card}>
-                <ListItem style={styles.listItem} containerStyle={styles.listItem} bottomDivider>
+                <ListItem style={styles.listItem} containerStyle={styles.listItem}>
                     <Icon prov="mi" name="face" size={30}/>
                     <ListItem.Content style={styles.listItem}>
                         <ListItem.Title style={styles.text}>
@@ -91,7 +91,7 @@ export default function TabTwoScreen({route}) {
                     </ListItem.Content>
                 </ListItem>
 
-                <ListItem style={styles.listItem} containerStyle={styles.listItem} bottomDivider>
+                <ListItem style={styles.listItem} containerStyle={styles.listItem}>
                     <Icon prov="mci" name="weather-cloudy" size={30}/>
                     <ListItem.Content style={styles.listItem}>
                         <ListItem.Title style={styles.text}>
@@ -103,7 +103,7 @@ export default function TabTwoScreen({route}) {
                     </ListItem.Content>
                 </ListItem>
 
-                <ListItem style={styles.listItem} containerStyle={styles.listItem} bottomDivider>
+                <ListItem style={styles.listItem} containerStyle={styles.listItem}>
                     <Icon prov="mci" name="react" size={30}/>
                     <ListItem.Content style={styles.listItem}>
                         <ListItem.Title style={styles.text}>
@@ -115,26 +115,26 @@ export default function TabTwoScreen({route}) {
                     </ListItem.Content>
                 </ListItem>
 
-                <ListItem style={styles.listItem} containerStyle={styles.listItem} bottomDivider>
+                <ListItem style={styles.listItem} containerStyle={styles.listItem}>
                     <Icon prov="mci" name="react" size={30}/>
                     <ListItem.Content style={styles.listItem}>
                         <ListItem.Title style={styles.text}>
                             Версия React Native
                         </ListItem.Title>
                         <ListItem.Subtitle style={styles.textSmall}>
-                            0.64.2
+                            0.64.3
                         </ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
 
-                <ListItem style={styles.listItem} containerStyle={styles.listItem} bottomDivider>
+                <ListItem style={styles.listItem} containerStyle={styles.listItem}>
                     <Icon prov="mi" name="settings" size={30}/>
                     <ListItem.Content style={styles.listItem}>
                         <ListItem.Title style={styles.text}>
                             Версия Expo SDK
                         </ListItem.Title>
                         <ListItem.Subtitle style={styles.textSmall}>
-                            46.0.0
+                            44.0.0
                         </ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
@@ -146,7 +146,7 @@ export default function TabTwoScreen({route}) {
                             Версия приложения
                         </ListItem.Title>
                         <ListItem.Subtitle style={styles.textSmall}>
-                            1.2.1 alpha
+                            1.3.0 alpha
                         </ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>

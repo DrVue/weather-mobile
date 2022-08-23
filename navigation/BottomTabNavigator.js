@@ -53,7 +53,7 @@ export default function TabOneNavigator() {
     useEffect(() => {
         if (isLoading) {
             (async () => {
-                setIsWelcome(await AsyncStorage.getItem("@welcom"));
+                setIsWelcome(await AsyncStorage.getItem("@welcome"));
                 await setIsLoading(false);
             })();
         }
