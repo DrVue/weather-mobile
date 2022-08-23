@@ -18,6 +18,7 @@ import {Button} from "react-native-elements";
 import {Icon, MView} from "../components/Themed";
 import ErrorScreen from "../screens/ErrorScreen";
 import WelcomeScreen from "../screens/WelcomeScreen";
+import DisclaimerScreen from "../screens/DisclaimerScreen";
 import {useEffect, useState} from "react";
 import * as Location from "expo-location";
 
@@ -162,6 +163,18 @@ export default function TabOneNavigator() {
             <TabOneStack.Screen
                 name="ErrorScreen"
                 component={ErrorScreen}
+                options={{
+                    headerTransparent: true,
+                    title: "",
+                    transitionSpec: {
+                        open: animConf,
+                        close: animConf,
+                    },
+                }}
+            />
+            <TabOneStack.Screen
+                name="DisclaimerScreen"
+                component={DisclaimerScreen}
                 options={{
                     headerTransparent: true,
                     title: "",

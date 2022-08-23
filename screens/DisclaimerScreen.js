@@ -2,9 +2,8 @@ import {StyleSheet, useColorScheme} from "react-native";
 import {Icon, MView, Text, View} from "../components/Themed";
 import {Button} from "react-native-elements";
 import React from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function WelcomeScreen({route, navigation}) {
+export default function DisclaimerScreen({route, navigation}) {
     const colorScheme = useColorScheme();
 
     const styles = StyleSheet.create({
@@ -20,13 +19,6 @@ export default function WelcomeScreen({route, navigation}) {
             padding: 10,
             margin: 10,
             borderRadius: 28,
-        },
-        cardButtonWarning: {
-            alignItems: "center",
-            padding: 10,
-            margin: 10,
-            borderRadius: 28,
-            backgroundColor: "orange",
         },
         cardTextBig: {
             fontSize: 40,
@@ -72,16 +64,15 @@ export default function WelcomeScreen({route, navigation}) {
     return <View style={{flex: 1, flexDirection: "column"}}>
         <MView style={styles.firstView}>
             <Icon prov="mci" name="weather-partly-lightning" color="white" size={100}/>
-            <Text style={styles.title}>Добро пожаловать в Погода</Text>
+            <Text style={styles.title}>К прочтению</Text>
         </MView>
         <MView style={styles.secondView}>
+            <Text style={styles.bigText}>Данное приложение разрабатывается Иваном Панасюк (далее - Автор) и находится в ранней стадии разработки. По этому здесь всё может измениться по усмотрению Автора.</Text>
 
-                <Text style={styles.bigText}>Получайте актуальную информацию о погоде в текущий момент и проноз на день в вашем или других городах</Text>
+            <Text style={styles.bigText}>Все данные о погодных условиях приложение получает из сторонних источников (OpenWeatherMap) и туда передаются данные обезличенные данные о местоположении.</Text>
 
-            {/*<Button buttonStyle={styles.cardButton} titleStyle={{fontFamily: "ProductSans"}} title="Начать" onPress={() => {AsyncStorage.setItem("@welcome", "true"); navigation.push("TabOneScreen")}}/>*/}
+            <Text style={styles.bigText}>Так же данные о погодных условиях могут быть не точными, либо не соответствовать действительности, так как данные собираются сообществом (OpenWeatherMap)</Text>
         </MView>
         <MView style={{flexGrow: 1,}}/>
-        <Button buttonStyle={styles.cardButtonWarning} titleStyle={{fontFamily: "ProductSans"}} title="К прочтению" onPress={() => {navigation.push("DisclaimerScreen")}}/>
-        <Button buttonStyle={styles.cardButton} titleStyle={{fontFamily: "ProductSans"}} title="Начать" onPress={() => {AsyncStorage.setItem("@welcome", "true"); navigation.push("TabOneScreen")}}/>
     </View>;
 }
